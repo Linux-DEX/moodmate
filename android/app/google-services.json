@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "815219348216",
+    "project_id": "moodmate-cc86c",
+    "storage_bucket": "moodmate-cc86c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:815219348216:android:f1f4f696392b6d28d9210d",
+        "android_client_info": {
+          "package_name": "com.example.moodmate"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyACKtm3umjiOvvO38Of05wA07O75amMRE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

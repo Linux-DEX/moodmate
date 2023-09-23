@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moodmate/reusable_widgets/reusable_widget.dart';
 import 'package:moodmate/screens/home_screen.dart';
@@ -16,6 +17,16 @@ class _SignInScreenState extends State<SignInScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text(
+          "Login",
+          style: TextStyle(
+              fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
+        ),
+      ),
       body: Container(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
@@ -23,56 +34,73 @@ class _SignInScreenState extends State<SignInScreen> {
           child: Padding(
             padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-              Image.asset(
-                "assets/images/signinlogo.png",
-                width: MediaQuery.of(context).size.width,
-              ),
-              // signinLogoWidget("assets/images/signinlogo.png"),
-              SizedBox(
-                height: 5,
-              ),
-              RichText(
-                  textAlign: TextAlign.left,
-                  text: TextSpan(
-                      text: "Welcome",
-                      style: TextStyle(
-                          fontSize: 25,
-                          color: Colors.black,
-                          fontWeight: FontWeight.bold),
-                      children: <TextSpan>[
-                        TextSpan(
-                            text: " Back!",
-                            style: TextStyle(
-                                fontSize: 25,
-                                color: Colors.blueAccent,
-                                fontWeight: FontWeight.bold))
-                      ])),
-              Text("Continue your calmness journey."),
-              SizedBox(
-                height: 10,
-              ),
-              reusableTextField("Enter UserName", Icons.person_outline, false,
-                  _emailTextController),
-              SizedBox(
-                height: 20,
-              ),
-              reusableTextField("Enter Password", Icons.lock_outlined, true,
-                  _passwordTextController),
-              SizedBox(
-                height: 5,
-              ),
-              Text("   Forgot Password?", textAlign: TextAlign.left,),
-              SizedBox(
-                height: 20,
-              ),
-              signInSignUpButton(context, true, () {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => HomeScreen()));
-              }),
-              signUpOption()
-            ]),
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  SizedBox(
+                    height: 45,
+                  ),
+                  Image.asset(
+                    "assets/images/signinlogo.png",
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                  // signinLogoWidget("assets/images/signinlogo.png"),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  RichText(
+                      textAlign: TextAlign.left,
+                      text: TextSpan(
+                          text: "Welcome",
+                          style: TextStyle(
+                              fontSize: 25,
+                              color: Colors.black,
+                              fontWeight: FontWeight.bold),
+                          children: <TextSpan>[
+                            TextSpan(
+                                text: " Back!",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.blueAccent,
+                                    fontWeight: FontWeight.bold))
+                          ])),
+                  Text("Continue your calmness journey."),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  reusableTextField("Enter UserName", Icons.person_outline,
+                      false, _emailTextController),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  reusableTextField("Enter Password", Icons.lock_outlined, true,
+                      _passwordTextController),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    "   Forgot Password?",
+                    textAlign: TextAlign.left,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  signInSignUpButton(context, true, () {
+                    FirebaseAuth.instance
+                        .signInWithEmailAndPassword(
+                            email: _emailTextController.text,
+                            password: _passwordTextController.text)
+                        .then((value) {
+                      print("Created New Account");
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => HomeScreen()));
+                    }).onError((error, stackTrace) {
+                      print("Error ${error.toString()}");
+                    });
+                  }),
+                  signUpOption()
+                ]),
           ),
         ),
       ),

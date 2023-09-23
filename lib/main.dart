@@ -1,5 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:moodmate/screens/first_page.dart';
 import 'package:moodmate/screens/welcome_page.dart';
 
 void main() async {
@@ -19,6 +20,9 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: WelcomePage());
+        home: WelcomePage()
+        // * change this after completing project
+        // home: FirstScreen()
+        );
   }
 }

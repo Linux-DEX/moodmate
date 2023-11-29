@@ -1,6 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:moodmate/screens/first_page.dart';
+import 'package:moodmate/screens/home_screen.dart';
 import 'package:moodmate/screens/welcome_page.dart';
 
 void main() async {
@@ -14,15 +14,16 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // NOTE: here i am adding GetMaterialApp() because i try to use GetX and Obx class
     return MaterialApp(
         debugShowCheckedModeBanner: false,
         title: 'Flutter Demo',
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        home: WelcomePage()
+        // home: WelcomePage()
         // * change this after completing project
-        // home: FirstScreen()
+        home: HomeScreen()
         );
   }
 }

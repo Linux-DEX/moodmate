@@ -27,11 +27,11 @@ class _HomeScreenState extends State<HomeScreen> {
       home: Scaffold(
         extendBodyBehindAppBar: true,
         backgroundColor: Colors.white,
-        // ! navigation bar
+        // ? navigation bar
         bottomNavigationBar: NavigationBarTheme(
           data: NavigationBarThemeData(indicatorColor: Colors.transparent),
           child: NavigationBar(
-            height: 60,
+            height: 65,
             backgroundColor: Colors.transparent,
             selectedIndex: index,
             labelBehavior: NavigationDestinationLabelBehavior.alwaysHide,
@@ -54,8 +54,19 @@ class _HomeScreenState extends State<HomeScreen> {
                   selectedIcon: Icon(Icons.group),
                   label: "friend"),
               NavigationDestination(
-                  icon: Icon(Icons.settings_outlined),
-                  selectedIcon: Icon(Icons.settings),
+                  icon: Padding(
+                    padding: EdgeInsets.all(8.0),
+                    child: Container(
+                      width: 35,
+                      height: 35,
+                      child: const CircleAvatar(
+                        backgroundImage: NetworkImage(
+                            "https://res.cloudinary.com/demo/image/facebook/65646572251.jpg"),
+                        ),
+                      ),
+                    ),
+                  // icon: Icon(Icons.settings_outlined),
+                  // selectedIcon: Icon(Icons.settings),
                   label: "settings"),
             ],
           ),

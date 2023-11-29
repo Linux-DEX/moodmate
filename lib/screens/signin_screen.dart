@@ -67,7 +67,7 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  reusableTextField("Enter UserName", Icons.person_outline,
+                  reusableTextField("Enter UserId", Icons.person_outline,
                       false, _emailTextController),
                   SizedBox(
                     height: 20,

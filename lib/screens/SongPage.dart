@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:moodmate/components/SongTile.dart';
+import 'package:moodmate/controller/CloudSongController.dart';
 import 'package:moodmate/controller/SongPlayerController.dart';
 import 'package:moodmate/controller/songDataController.dart';
 
@@ -11,6 +12,7 @@ class SongPage extends StatelessWidget {
   Widget build(BuildContext context) {
     SongDataController songDataController = Get.put(SongDataController());
     SongPlayerController songPlayerController = Get.put(SongPlayerController());
+    CloudSongController cloudSongController = Get.put(CloudSongController());
     return Scaffold(
       body: SafeArea(
           child: SingleChildScrollView(
@@ -58,7 +60,8 @@ class SongPage extends StatelessWidget {
                           .map((e) => SongTile(
                                 onPress: () {
                                   songPlayerController.playLocalAudio(e);
-                                  songDataController.findCurrentSongPlayingIndex(e.id);
+                                  songDataController
+                                      .findCurrentSongPlayingIndex(e.id);
                                   Navigator.pop(context);
                                   // songPlayerController.songTitle.value = e.title;
                                 },
@@ -66,7 +69,19 @@ class SongPage extends StatelessWidget {
                               ))
                           .toList())
                   : Column(
-                      children: [],
+                    // BUG: It is not able to next and previous the cloud music 
+                    // TODO: fix the bug here 
+                      children: cloudSongController.cloudSongList.value
+                          .map((e) => SongTile(
+                                onPress: () {
+                                  songPlayerController.playCloudAudio(e);
+                                  songDataController
+                                      .findCurrentSongPlayingIndex(e.id!);
+                                  Navigator.pop(context);
+                                },
+                                songName: e.title!,
+                              ))
+                          .toList(),
                     ),
             )
           ]),

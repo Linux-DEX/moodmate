@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
+import 'package:moodmate/Model/MySongModel.dart';
 import 'package:on_audio_query/on_audio_query.dart';
 
 class SongPlayerController extends GetxController {
@@ -11,14 +12,33 @@ class SongPlayerController extends GetxController {
   RxDouble sliderMaxValue = 0.0.obs;
   RxString songTitle = "title".obs;
   RxString songArtist = "".obs;
+  RxBool isCloudSongPlaying = false.obs;
 
   void playLocalAudio(SongModel song) async {
     songTitle.value = song.title;
     songArtist.value = song.artist!;
+    isCloudSongPlaying.value = false;
 
     await player.setAudioSource(
       AudioSource.uri(
         Uri.parse(song.data),
+      ),
+    );
+
+    player.play();
+    updatePosition();
+    isPlaying.value = true;
+  }
+
+  // README: Here i am playing the firebase audio 
+  void playCloudAudio(MySongModel song) async {
+    songTitle.value = song.title!;
+    songArtist.value = song.artist!;
+    isCloudSongPlaying.value = true;
+
+    await player.setAudioSource(
+      AudioSource.uri(
+        Uri.parse(song.data!),
       ),
     );
 

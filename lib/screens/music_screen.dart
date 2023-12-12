@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
+import 'package:moodmate/controller/CloudSongController.dart';
 import 'package:moodmate/controller/SongPlayerController.dart';
 import 'package:moodmate/controller/songDataController.dart';
 import 'package:moodmate/screens/SongPage.dart';
@@ -22,16 +23,16 @@ class _MusicScreenState extends State<MusicScreen> {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black, size: 32),
         backgroundColor: Colors.white,
-        leading: Builder(
-          builder: (BuildContext context) {
-            return IconButton(
-                onPressed: () {
-                  // ! add the action here
-                  print("click");
-                },
-                icon: Icon(Icons.keyboard_arrow_down));
-          },
-        ),
+        // README: No use of adding the features 
+        // leading: Builder(
+        //   builder: (BuildContext context) {
+        //     return IconButton(
+        //         onPressed: () {
+        //           print("click");
+        //         },
+        //         icon: Icon(Icons.keyboard_arrow_down));
+        //   },
+        // ),
         actions: [
           IconButton(
               onPressed: () => {
@@ -52,28 +53,32 @@ class _MusicScreenState extends State<MusicScreen> {
             padding: EdgeInsets.only(
               left: 30,
             ),
-            child: Text(
-              "Device Playlist",
-              style: TextStyle(
-                fontSize: 35,
-                fontWeight: FontWeight.w500,
+            child: Obx(() =>
+                Text(
+                songPlayerController.isCloudSongPlaying.value == true ?"Cloud Playlist" : "Device Playlist",
+                style: TextStyle(
+                  fontSize: 35,
+                  fontWeight: FontWeight.w500,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
           ),
           SizedBox(
             height: 20,
           ),
           Center(
-            child: Container(
-              height: 250,
-              width: 250,
-              decoration: BoxDecoration(
-                border: Border.all(color: Colors.blue),
-                borderRadius: BorderRadius.all(Radius.circular(10)),
-                image: DecorationImage(
-                  image: AssetImage('assets/images/images.png'),
-                  fit: BoxFit.fill,
+            child: Obx(() =>
+              Container(
+                height: 250,
+                width: 250,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.blue),
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  image: DecorationImage(
+                    image: AssetImage(songPlayerController.isCloudSongPlaying.value == true ? 'assets/images/cloudmusic.jpeg' : 'assets/images/images.png'),
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
             ),
@@ -104,6 +109,8 @@ class _MusicScreenState extends State<MusicScreen> {
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
                         color: Colors.black54),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ),
@@ -177,7 +184,6 @@ class _MusicScreenState extends State<MusicScreen> {
                   ),
                 ),
 
-                //NOTE: Not it is working properly
                 Obx(
                   () => songPlayerController.isPlaying.value
                       ? InkWell(

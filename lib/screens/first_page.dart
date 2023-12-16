@@ -23,7 +23,7 @@ class _FirstScreenState extends State<FirstScreen> {
     "Relax",
   ];
   List listChange = [CalmList(), FocusList(), HappyList(), RelaxList()];
-  
+
   int current = 0;
 
   // ? function for visibility
@@ -36,9 +36,7 @@ class _FirstScreenState extends State<FirstScreen> {
       setState(() {
         isVisible = !isVisible;
         Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => HomeScreen()));
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
       });
     });
   }
@@ -101,83 +99,76 @@ class _FirstScreenState extends State<FirstScreen> {
                   style: TextStyle(fontSize: 17),
                 ),
               ),
+              SizedBox(
+                height: 50,
+              ),
               Visibility(
                 visible: isVisible,
-                child: Container(
-                  width: double.infinity,
-                  // height: double.infinity,
-                  margin: const EdgeInsets.all(5),
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        width: double.infinity,
-                        height: 100,
-                        child: ListView.builder(
-                            physics: const BouncingScrollPhysics(),
-                            // itemCount: items.length,
-                            itemCount: 4,
-                            scrollDirection: Axis.horizontal,
-                            itemBuilder: (context, index) {
-                              return Column(
+                child: Center(
+                  child: Container(
+                    padding: EdgeInsets.only(top: 30),
+                    width: MediaQuery.of(context).size.width - 20,
+                    height: 280,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      color: Colors.blue[50],
+                    ),
+                    child: GridView.builder(
+                        gridDelegate:
+                            const SliverGridDelegateWithMaxCrossAxisExtent(
+                                maxCrossAxisExtent: 200,
+                                childAspectRatio: 3 / 2,
+                                crossAxisSpacing: 20,
+                                mainAxisSpacing: 20),
+                        // physics: const BouncingScrollPhysics(),
+                        // itemCount: items.length,
+                        itemCount: 4,
+                        // scrollDirection: Axis.horizontal,
+                        itemBuilder: (context, index) {
+                          return GestureDetector(
+                            // ? static tap
+                            // onTap: () {
+                            //   setState(() {
+                            //     current = index;
+                            //   });
+                            // },
+                            // ? to change the visibility
+                            // onTap: _toggleVisibility,
+                            onTap: () {
+                              current = index;
+                              _toggleVisibility();
+                            },
+                            child: Container(
+                              height: 100,
+                              child: Column(
                                 children: [
-                                  GestureDetector(
-                                    // ? static tap
-                                    // onTap: () {
-                                    //   setState(() {
-                                    //     current = index;
-                                    //   });
-                                    // },
-                                    // ? to change the visibility
-                                    // onTap: _toggleVisibility,
-                                    onTap: () {
-                                      current = index;
-                                      _toggleVisibility();
-                                    },
-                                    child: AnimatedContainer(
-                                      duration:
-                                          const Duration(milliseconds: 300),
-                                      margin: const EdgeInsets.all(5),
-                                      width: 80,
-                                      height: 80,
-                                      decoration: BoxDecoration(
-                                        // color: current == index
-                                        //     ? Colors.white70
-                                        //     : Colors.white54,
-                                        borderRadius: current == index
-                                            ? BorderRadius.circular(15)
-                                            : BorderRadius.circular(10),
-                                            color: Colors.transparent,
-                                      ),
-                                      child: Column(
-                                        children: [
-                                          Container(
-                                            height: 50,
-                                            child: Center(
-                                              child: Image.asset(
-                                                  'assets/images/${img[index]}'),
-                                            ),
-                                          ),
-                                          SizedBox(
-                                            height: 5.0,
-                                          ),
-                                          Text(items[index]),
-                                        ],
-                                      ),
+                                  Container(
+                                    height: 70,
+                                    child: Center(
+                                      child: Image.asset(
+                                          'assets/images/${img[index]}'),
                                     ),
                                   ),
+                                  SizedBox(
+                                    height: 5.0,
+                                  ),
+                                  Text(items[index]),
                                 ],
-                              );
-                            }),
-                      ),
-                    ],
+                              ),
+                            ),
+                          );
+                        }),
                   ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                child: Text(
-                  "Today\'s Task",
-                  style: TextStyle(fontSize: 20),
+              Visibility(
+                visible: !isVisible,
+                child: Padding(
+                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                  child: Text(
+                    "Today\'s Task",
+                    style: TextStyle(fontSize: 20),
+                  ),
                 ),
               ),
               // Container(
@@ -201,8 +192,11 @@ class _FirstScreenState extends State<FirstScreen> {
               //     ],
               //   ),
               // ),
-              Container(
-              child: listChange[current],
+              Visibility(
+                visible: !isVisible,
+                child: Container(
+                  child: listChange[current],
+                ),
               )
             ]),
       ),

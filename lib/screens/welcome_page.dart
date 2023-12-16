@@ -33,7 +33,7 @@ class _WelcomePageState extends State<WelcomePage> {
                   height: 20,
                 ),
                 ElevatedButton(
-                  child: Text('Let Us Help You'),
+                  child: Text('Let Us Help You', style: TextStyle(color: Colors.white),),
                   style: ElevatedButton.styleFrom(
                       padding: EdgeInsets.fromLTRB(
                           MediaQuery.of(context).size.width * 0.2,
@@ -46,7 +46,7 @@ class _WelcomePageState extends State<WelcomePage> {
                         fontSize: 20,
                       )),
                   onPressed: () {
-                    Navigator.push(
+                    Navigator.pushReplacement(
                       context,
                       MaterialPageRoute(
                         builder: (context) => SignUpScreen(),

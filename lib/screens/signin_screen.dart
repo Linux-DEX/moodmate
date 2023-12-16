@@ -1,8 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moodmate/main.dart';
 import 'package:moodmate/reusable_widgets/reusable_widget.dart';
 import 'package:moodmate/screens/home_screen.dart';
 import 'package:moodmate/screens/signup_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SignInScreen extends StatefulWidget {
   const SignInScreen({super.key});
@@ -67,8 +69,8 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(
                     height: 10,
                   ),
-                  reusableTextField("Enter UserId", Icons.person_outline,
-                      false, _emailTextController),
+                  reusableTextField("Enter UserId", Icons.person_outline, false,
+                      _emailTextController),
                   SizedBox(
                     height: 20,
                   ),
@@ -84,14 +86,18 @@ class _SignInScreenState extends State<SignInScreen> {
                   SizedBox(
                     height: 20,
                   ),
-                  signInSignUpButton(context, true, () {
+                  signInSignUpButton(context, true, () async {
+                    // FIXME: do testing for this code here and async above 
+                    var sharedPref = await SharedPreferences.getInstance();
+                    sharedPref.setBool(splashPageState.KEYLOGIN, true);
+
                     FirebaseAuth.instance
                         .signInWithEmailAndPassword(
                             email: _emailTextController.text,
                             password: _passwordTextController.text)
                         .then((value) {
                       print("Created New Account");
-                      Navigator.push(
+                      Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(
                               builder: (context) => HomeScreen()));

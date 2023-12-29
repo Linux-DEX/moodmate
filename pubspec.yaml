@@ -43,6 +43,7 @@ dependencies:
   permission_handler: ^11.1.0
   just_audio: ^0.9.36
   cloud_firestore: ^4.13.3
+  fluttertoast: ^8.2.4                         
 
 dev_dependencies:
   flutter_test:

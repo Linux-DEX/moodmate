@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moodmate/main.dart';
 import 'package:moodmate/reusable_widgets/reusable_widget.dart';
+import 'package:moodmate/screens/forgot_password.dart';
 import 'package:moodmate/screens/home_screen.dart';
 import 'package:moodmate/screens/signup_screen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -77,17 +78,29 @@ class _SignInScreenState extends State<SignInScreen> {
                   reusableTextField("Enter Password", Icons.lock_outlined, true,
                       _passwordTextController),
                   SizedBox(
-                    height: 5,
+                    height: 3,
                   ),
-                  Text(
-                    "   Forgot Password?",
-                    textAlign: TextAlign.left,
-                  ),
-                  SizedBox(
-                    height: 20,
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => ForgotPasswordScreen()));
+                        },
+                        child: const Text(
+                          " Forgot Password",
+                          style: TextStyle(
+                              color: Color.fromARGB(255, 84, 187, 228),
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                    ],
                   ),
                   signInSignUpButton(context, true, () async {
-                    // FIXME: do testing for this code here and async above 
+                    // FIXME: do testing for this code here and async above
                     var sharedPref = await SharedPreferences.getInstance();
                     sharedPref.setBool(splashPageState.KEYLOGIN, true);
 

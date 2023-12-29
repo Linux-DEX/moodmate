@@ -107,8 +107,8 @@ class _FirstScreenState extends State<FirstScreen> {
                 child: Center(
                   child: Container(
                     padding: EdgeInsets.only(top: 30),
-                    width: MediaQuery.of(context).size.width - 20,
-                    height: 280,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    height: MediaQuery.of(context).size.width * 0.73,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(20),
                       color: Colors.blue[50],

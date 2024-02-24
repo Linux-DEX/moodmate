@@ -28,7 +28,6 @@ class MyApp extends StatelessWidget {
         theme: ThemeData(
           primarySwatch: Colors.blue,
         ),
-        // FIXME: add the function to staying login in app.
         // home: WelcomePage()
         home: splashPage()
         // NOTE: this for testing

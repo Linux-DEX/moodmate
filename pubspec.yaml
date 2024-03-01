@@ -44,6 +44,7 @@ dependencies:
   just_audio: ^0.9.36
   cloud_firestore: ^4.13.3
   fluttertoast: ^8.2.4                         
+  percent_indicator: ^4.2.3
 
 dev_dependencies:
   flutter_test:

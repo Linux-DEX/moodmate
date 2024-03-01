@@ -1,3 +1,5 @@
+# data model
+
 {
     picture: pic,
     fullName:
@@ -17,21 +19,23 @@
     }
 }
 
-object.mood.${moodselect}.mon 
+object.mood.${moodselect}.mon
 
-depress
-stress
-anger
-sad
-relax
-happy
+## mood2
 
+- depress
+- stress
+- anger
+- sad
+- relax
+- happy
 
-userdata:
-    1. picture
-    2. full name
-    3. email
-    4. age
-    5. gender
-    6. password
-    7. bio
+## User data to store in firestore
+
+1. picture 
+2. full name 
+3. email 
+4. age 
+5. gender 
+6. password 
+7. bio

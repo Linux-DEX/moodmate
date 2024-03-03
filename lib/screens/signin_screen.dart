@@ -109,7 +109,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             email: _emailTextController.text,
                             password: _passwordTextController.text)
                         .then((value) {
-                      print("Created New Account");
+                      print("Login");
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

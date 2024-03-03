@@ -1,15 +1,17 @@
 import 'package:flutter/material.dart';
 
-class HappyList extends StatefulWidget {
-  const HappyList({super.key});
+class StressList extends StatefulWidget {
+  const StressList({super.key});
 
   @override
-  State<HappyList> createState() => _HappyListState();
+  State<StressList> createState() => StressListState();
 }
 
-class _HappyListState extends State<HappyList> {
-  List<bool> isChecked = [false, false, false, false];
-  List<String> happy = ["happy1", "happy2", "happy3", "happy4"];
+class StressListState extends State<StressList> {
+  List<String> stress = ["stress1", "stress2", "stress3", "stress4"];
+  // List<bool> isChecked = [false, false, false, false];
+  // * another way of defining list of ischecked
+  List<bool> isChecked = List.generate(4, (_) => false);
   List<String> workout = [
     "exp1",
     "exp2",
@@ -40,14 +42,14 @@ class _HappyListState extends State<HappyList> {
                       width: 55.0,
                       height: 55.0,
                       color: Colors.transparent,
-                      child: Image.asset("assets/images/happy.png"),
+                      child: Image.asset("assets/images/stress.png"),
                     ),
                     SizedBox(width: 5.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          happy[index],
+                          stress[index],
                           style: TextStyle(fontSize: 25),
                         ),
                         Text(workout[index]),
@@ -60,8 +62,15 @@ class _HappyListState extends State<HappyList> {
                   padding: EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                   child: Checkbox(
                       value: isChecked[index],
-                      onChanged: (newValue) {
-                        setState(() => isChecked[index] = !isChecked[index]);
+                      onChanged: (bool? newValue) {
+                        // * this is another way of checkbox
+                        setState(() => {
+                              isChecked[index] = newValue ?? false,
+                              // print("focus clicked"),
+                              // print(isChecked[index].toString() +
+                              //     " " +
+                              //     index.toString())
+                            });
                       }),
                 ),
               ],

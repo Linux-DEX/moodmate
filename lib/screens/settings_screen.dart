@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:moodmate/main.dart';
+import 'package:moodmate/reusable_widgets/bar_graph.dart';
 import 'package:moodmate/reusable_widgets/day_report.dart';
 import 'package:moodmate/reusable_widgets/weekly_report.dart';
 import 'package:moodmate/screens/welcome_page.dart';
@@ -13,6 +14,7 @@ class SettigScreen extends StatefulWidget {
 }
 
 class _SettigScreenState extends State<SettigScreen> {
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -21,14 +23,14 @@ class _SettigScreenState extends State<SettigScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.fromLTRB(0, 30, 0, 0),
+              padding: const EdgeInsets.fromLTRB(0, 30, 0, 20),
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   ClipOval(
                     child: SizedBox.fromSize(
-                      size: Size.fromRadius(48),
+                      size: Size.fromRadius(40),
                       // child: Image.asset("assets/images/Calm.png"),
                       child: const CircleAvatar(
                         backgroundImage: NetworkImage(
@@ -36,20 +38,31 @@ class _SettigScreenState extends State<SettigScreen> {
                       ),
                     ),
                   ),
-                  SizedBox(width: MediaQuery.of(context).size.width * 0.2),
-                  Text(
-                    "USER-NAME",
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  SizedBox(width: MediaQuery.of(context).size.width * 0.15),
+                  Column(
+                    children: [
+                      Text(
+                        "USER-NAME",
+                        style: TextStyle(
+                          fontSize: 17,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      Text(
+                        "user@gmail.com",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Padding(
-              padding: EdgeInsets.fromLTRB(10, 2, 10, 10),
+              padding: EdgeInsets.fromLTRB(10, 2, 1, 2),
               child: Text(
                 "Daily Report",
                 textAlign: TextAlign.start,
@@ -60,7 +73,7 @@ class _SettigScreenState extends State<SettigScreen> {
               ),
             ),
             DailyReport(context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
             Padding(
               padding: EdgeInsets.fromLTRB(10, 2, 10, 10),
               child: Text(
@@ -73,7 +86,19 @@ class _SettigScreenState extends State<SettigScreen> {
               ),
             ),
             WeeklyReport(context),
-            SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            // SizedBox(height: MediaQuery.of(context).size.height * 0.05),
+            Padding(
+              padding: EdgeInsets.fromLTRB(10, 2, 10, 10),
+              child: Text(
+                "Bar Graph",
+                textAlign: TextAlign.start,
+                style: TextStyle(
+                  fontSize: 18,
+                  fontWeight: FontWeight.w500,
+                ),
+              ),
+            ),
+            MyBarGraph(context),
             // ! Logo Out button
             // ElevatedButton(
             //   child: Text(
@@ -94,7 +119,7 @@ class _SettigScreenState extends State<SettigScreen> {
             //   onPressed: () async {
             //     var sharedPref = await SharedPreferences.getInstance();
             //     sharedPref.setBool(splashPageState.KEYLOGIN, false);
-        
+
             //     Navigator.pushReplacement(
             //       context,
             //       MaterialPageRoute(

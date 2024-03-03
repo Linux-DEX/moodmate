@@ -21,7 +21,7 @@
 
 object.mood.${moodselect}.mon
 
-## mood2
+## mood
 
 - depress
 - stress
@@ -39,3 +39,6 @@ object.mood.${moodselect}.mon
 5. gender 
 6. password 
 7. bio
+
+moodval = map<mood, val>
+map<monday, moodval >

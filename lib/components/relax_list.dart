@@ -8,17 +8,18 @@ class RelaxList extends StatefulWidget {
 }
 
 class _RelaxListState extends State<RelaxList> {
-  List<String> relax = ["relax1", "relax2", "relax3", "relax4"];
   List<bool> isChecked = [false, false, false, false];
+  List<String> relax = ["relax1", "relax2", "relax3", "relax4"];
   List<String> workout = [
     "exp1",
     "exp2",
     "exp3",
     "exp4",
   ];
+
   @override
   Widget build(BuildContext context) {
-      return ListView.builder(
+    return ListView.builder(
       itemCount: 4,
       shrinkWrap: true,
       itemBuilder: (BuildContext context, int index) => Container(
@@ -38,8 +39,8 @@ class _RelaxListState extends State<RelaxList> {
                     Container(
                       width: 55.0,
                       height: 55.0,
-                      color: Colors.blueAccent,
-                      child: Image.asset("assets/images/Relax.png"),
+                      color: Colors.transparent,
+                      child: Image.asset("assets/images/relax.png"),
                     ),
                     SizedBox(width: 5.0),
                     Column(

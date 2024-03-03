@@ -45,6 +45,8 @@ dependencies:
   cloud_firestore: ^4.13.3
   fluttertoast: ^8.2.4                         
   percent_indicator: ^4.2.3
+  fl_chart: ^0.66.2
+  intl: ^0.19.0
 
 dev_dependencies:
   flutter_test:

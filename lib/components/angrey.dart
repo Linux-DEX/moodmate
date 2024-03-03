@@ -9,7 +9,7 @@ class AngerList extends StatefulWidget {
 
 class _AngerListState extends State<AngerList> {
   List<bool> isChecked = [false, false, false, false];
-  List<String> calm = ["calm1", "calm2", "calm3", "calm4"];
+  List<String> anger = ["anger1", "anger2", "anger3", "anger4"];
   List<String> workout = [
     "exp1",
     "exp2",
@@ -39,15 +39,15 @@ class _AngerListState extends State<AngerList> {
                     Container(
                       width: 55.0,
                       height: 55.0,
-                      color: Colors.blueAccent,
-                      child: Image.asset("assets/images/Calm.png"),
+                      color: Colors.transparent,
+                      child: Image.asset("assets/images/anger.png"),
                     ),
                     SizedBox(width: 5.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          calm[index],
+                          anger[index],
                           style: TextStyle(fontSize: 25),
                         ),
                         Text(workout[index]),

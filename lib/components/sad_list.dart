@@ -1,16 +1,15 @@
-// ? to store the data when ever the page is changed we can use shared_preference package. or directly we can save the data in firebase 
 import 'package:flutter/material.dart';
 
-class CalmList extends StatefulWidget {
-  const CalmList({super.key});
+class SadList extends StatefulWidget {
+  const SadList({super.key});
 
   @override
-  State<CalmList> createState() => _CalmListState();
+  State<SadList> createState() => _SadListState();
 }
 
-class _CalmListState extends State<CalmList> {
+class _SadListState extends State<SadList> {
   List<bool> isChecked = [false, false, false, false];
-  List<String> calm = ["calm1", "calm2", "calm3", "calm4"];
+  List<String> sad = ["sad1", "sad2", "sad3", "sad4"];
   List<String> workout = [
     "exp1",
     "exp2",
@@ -40,15 +39,15 @@ class _CalmListState extends State<CalmList> {
                     Container(
                       width: 55.0,
                       height: 55.0,
-                      color: Colors.blueAccent,
-                      child: Image.asset("assets/images/Calm.png"),
+                      color: Colors.transparent,
+                      child: Image.asset("assets/images/sad.png"),
                     ),
                     SizedBox(width: 5.0),
                     Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Text(
-                          calm[index],
+                          sad[index],
                           style: TextStyle(fontSize: 25),
                         ),
                         Text(workout[index]),

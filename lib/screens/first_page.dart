@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:moodmate/components/angrey.dart';
-import 'dart:async';
-import 'package:moodmate/components/calm_list.dart';
-import 'package:moodmate/components/focus_list.dart';
+import 'package:moodmate/components/depress_list.dart';
 import 'package:moodmate/components/happy_list.dart';
 import 'package:moodmate/components/relax_list.dart';
+import 'package:moodmate/components/sad_list.dart';
+import 'dart:async';
+import 'package:moodmate/components/stress_list.dart';
 import 'package:moodmate/main.dart';
 import 'package:moodmate/screens/home_screen.dart';
 import 'package:moodmate/screens/welcome_page.dart';
@@ -18,18 +19,27 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  bool isVisible = true;
-  List img = ['Calm.png', 'Focus.png', 'Happy.png', 'Relax.png','Relax.png'];
-  List<String> items = [
-    "Calm",
-    "Focus",
-    "Happy",
-    "Relax",
-    "Anger"
-  ];
-  List listChange = [CalmList(), FocusList(), HappyList(), RelaxList(),AngerList()];
+  static bool isVisible = true;
 
-  int current = 0;
+  List img = [
+    'depress.png',
+    'stress.png',
+    'anger.png',
+    'sad.png',
+    "relax.png",
+    "happy.png"
+  ];
+  List<String> items = ["depress", "stress", "anger", 'sad', "relax", "happy"];
+  List listChange = [
+    Depress(),
+    StressList(),
+    AngerList(),
+    SadList(),
+    RelaxList(),
+    HappyList()
+  ];
+
+  static int current = 0;
 
   // ? function for visibility
   void _toggleVisibility() {
@@ -37,13 +47,13 @@ class _FirstScreenState extends State<FirstScreen> {
       isVisible = !isVisible;
     });
 
-    Timer(Duration(seconds: 5), () {
-      setState(() {
-        isVisible = !isVisible;
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
+      Timer(Duration(seconds: 5), () {
+        setState(() {
+          isVisible = !isVisible;
+          // Navigator.push(
+          //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        });
       });
-    });
   }
 
   @override
@@ -198,14 +208,6 @@ class _FirstScreenState extends State<FirstScreen> {
                         // scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            // ? static tap
-                            // onTap: () {
-                            //   setState(() {
-                            //     current = index;
-                            //   });
-                            // },
-                            // ? to change the visibility
-                            // onTap: _toggleVisibility,
                             onTap: () {
                               current = index;
                               _toggleVisibility();

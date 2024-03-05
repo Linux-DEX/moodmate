@@ -20,6 +20,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   static bool isVisible = true;
+  int current = 0;
 
   List img = [
     'depress.png',
@@ -39,22 +40,75 @@ class _FirstScreenState extends State<FirstScreen> {
     HappyList()
   ];
 
-  static int current = 0;
-
   // ? function for visibility
   void _toggleVisibility() {
     setState(() {
       isVisible = !isVisible;
     });
 
-      Timer(Duration(seconds: 5), () {
-        setState(() {
-          isVisible = !isVisible;
-          // Navigator.push(
-          //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
-        });
+    Timer(Duration(seconds: 5), () {
+      setState(() {
+        isVisible = !isVisible;
+        // Navigator.push(
+        //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
       });
+    });
   }
+
+  // void savedData() async {
+  //   print("run kar bc");
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   DateTime now = DateTime.now();
+  //   await prefs.setInt("today", now.day);
+  //   print(prefs.getInt("today"));
+  // }
+
+  // Future<void> setcurrentvalue() async {
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   current = await prefs.getInt("current") ?? 0;
+  // }
+
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   print("$isVisible initState value");
+
+  //   setcurrentvalue();
+
+  //   Timer.periodic(Duration(seconds: 10), (timer) {
+  //     if (mounted) {
+  //       setState(() {
+  //         print("callingggg");
+  //         containerVisibilityControl();
+  //         print("$isVisible checking");
+  //       });
+  //     }
+  //   });
+  // }
+
+  // void containerVisibilityControl() async {
+  //   // var now = DateTime.now();
+  //   DateTime now = DateTime.now();
+  //   DateTime midnight = DateTime(now.year, now.month, now.day, 0, 0);
+  //   // if (now.hour >= 0 && now.hour < 12) {
+  //   //   setState(() {
+  //   //     print("$isVisible setting false");
+  //   //     isVisible = true;
+  //   //   });
+  //   // }
+  //   SharedPreferences prefs = await SharedPreferences.getInstance();
+  //   int checktoday = await prefs.getInt("today") ?? now.day;
+  //   print(checktoday);
+  //   if (now.isAfter(midnight) && checktoday == now.day) {
+  //     setState(() async {
+  //       isVisible = true;
+  //       SharedPreferences prefs = await SharedPreferences.getInstance();
+  //       prefs.setInt("today", now.day + 1);
+  //       print(await prefs.getInt("today"));
+  //       print("$isVisible setting false");
+  //     });
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -208,7 +262,7 @@ class _FirstScreenState extends State<FirstScreen> {
                         // scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () {
+                            onTap: () async {
                               current = index;
                               _toggleVisibility();
                             },
@@ -269,6 +323,7 @@ class _FirstScreenState extends State<FirstScreen> {
               Visibility(
                 visible: !isVisible,
                 child: Container(
+                  // child: listChange[current],
                   child: listChange[current],
                 ),
               )

@@ -21,7 +21,7 @@ class _AngerListState extends State<AngerList> {
     "exp2",
     "exp3",
     "exp4",
-    "exp4",
+    "exp5",
   ];
   List<String> image = [
     "assets/images/count.png",

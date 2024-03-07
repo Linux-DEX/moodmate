@@ -51,69 +51,69 @@ Column circular(int percentage, String day, String mood, Color colorOne) {
   );
 }
 
-// Container WeeklyReport(BuildContext context) {
-//   return Container(
-//     child: Expanded(
-//         child: GridView.count(
-//       crossAxisCount: 4,
-//       // mainAxisSpacing: 10,
-//       // crossAxisSpacing: 10,
-//       childAspectRatio: 7 / 10,
-//       children: [
-//         circular(10, "MON", "Happy", Colors.redAccent.shade400),
-//         circular(30, "TUE", "relax", Colors.orangeAccent.shade400),
-//         circular(40, "WED", "Sad", Colors.yellowAccent.shade400),
-//         circular(80, "THUR", "Happy", Colors.greenAccent.shade400),
-//         circular(30, "FRI", "Sad", Colors.blueAccent.shade400),
-//         circular(40, "SAT", "Sad", Colors.indigoAccent.shade400),
-//         circular(90, "SUN", "Happy", Colors.deepPurpleAccent.shade400),
-//       ],
-//     )),
-//   );
-// }
-
 Container WeeklyReport(BuildContext context) {
   return Container(
-    height: 150,
-    padding: EdgeInsets.all(10),
-    child: ListView(
-      scrollDirection: Axis.horizontal,
+    child: Expanded(
+        child: GridView.count(
+      crossAxisCount: 4,
+      // mainAxisSpacing: 10,
+      // crossAxisSpacing: 10,
+      childAspectRatio: 7 / 10,
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          child: circular(10, "MON", "Happy", Colors.redAccent.shade400),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          // padding: const EdgeInsets.all(8.0),
-          child: circular(30, "TUE", "relax", Colors.orangeAccent.shade400),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          // padding: const EdgeInsets.all(8.0),
-          child: circular(40, "WED", "Sad", Colors.yellowAccent.shade400),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          // padding: const EdgeInsets.all(8.0),
-          child: circular(80, "THUR", "Happy", Colors.greenAccent.shade400),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          // padding: const EdgeInsets.all(8.0),
-          child: circular(30, "FRI", "Sad", Colors.blueAccent.shade400),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          // padding: const EdgeInsets.all(8.0),
-          child: circular(40, "SAT", "Sad", Colors.indigoAccent.shade400),
-        ),
-        Padding(
-          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-          // padding: const EdgeInsets.all(8.0),
-          child: circular(90, "SUN", "Happy", Colors.deepPurpleAccent.shade400),
-        ),
+        circular(10, "MON", "Happy", Colors.redAccent.shade400),
+        circular(30, "TUE", "relax", Colors.orangeAccent.shade400),
+        circular(40, "WED", "Sad", Colors.yellowAccent.shade400),
+        circular(80, "THUR", "Happy", Colors.greenAccent.shade400),
+        circular(30, "FRI", "Sad", Colors.blueAccent.shade400),
+        circular(40, "SAT", "Sad", Colors.indigoAccent.shade400),
+        circular(90, "SUN", "Happy", Colors.deepPurpleAccent.shade400),
       ],
-    ),
+    )),
   );
 }
+
+// Container WeeklyReport(BuildContext context) {
+//   return Container(
+//     height: 150,
+//     padding: EdgeInsets.all(10),
+//     child: ListView(
+//       scrollDirection: Axis.horizontal,
+//       children: [
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+//           child: circular(10, "MON", "Happy", Colors.redAccent.shade400),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+//           // padding: const EdgeInsets.all(8.0),
+//           child: circular(30, "TUE", "relax", Colors.orangeAccent.shade400),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+//           // padding: const EdgeInsets.all(8.0),
+//           child: circular(40, "WED", "Sad", Colors.yellowAccent.shade400),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+//           // padding: const EdgeInsets.all(8.0),
+//           child: circular(80, "THUR", "Happy", Colors.greenAccent.shade400),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+//           // padding: const EdgeInsets.all(8.0),
+//           child: circular(30, "FRI", "Sad", Colors.blueAccent.shade400),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+//           // padding: const EdgeInsets.all(8.0),
+//           child: circular(40, "SAT", "Sad", Colors.indigoAccent.shade400),
+//         ),
+//         Padding(
+//           padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 10),
+//           // padding: const EdgeInsets.all(8.0),
+//           child: circular(90, "SUN", "Happy", Colors.deepPurpleAccent.shade400),
+//         ),
+//       ],
+//     ),
+//   );
+// }

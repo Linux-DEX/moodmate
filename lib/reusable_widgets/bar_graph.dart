@@ -27,7 +27,7 @@ Container MyBarGraph(BuildContext context) {
   return Container(
     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 8),
     child: SizedBox(
-      height: 200,
+      height: 250,
       child: BarChart(
         BarChartData(
           maxY: 100,

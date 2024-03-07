@@ -17,7 +17,6 @@ class FriendsTile extends StatelessWidget {
             },
             child: Card(
               elevation: 5.0,
-              color: Colors.white,
               shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(5)),
               child: Container(

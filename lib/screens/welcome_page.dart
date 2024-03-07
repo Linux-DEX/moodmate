@@ -40,7 +40,7 @@ class _WelcomePageState extends State<WelcomePage> {
                           20,
                           MediaQuery.of(context).size.width * 0.2,
                           20),
-                      primary: Color.fromARGB(255, 44, 3, 115),
+                      //primary: Color.fromARGB(255, 44, 3, 115),
                       textStyle: const TextStyle(
                         color: Colors.white,
                         fontSize: 20,

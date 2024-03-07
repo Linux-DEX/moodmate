@@ -64,7 +64,7 @@ Container signInSignUpButton(
       child: Text(
         isLogin ? 'LOG IN' : 'Create Account',
         style: const TextStyle(
-            color: Color.fromARGB(221, 255, 255, 255),
+            color:Colors.white,
             fontWeight: FontWeight.bold,
             fontSize: 16),
       ),
@@ -73,7 +73,7 @@ Container signInSignUpButton(
             if (states.contains(MaterialState.pressed)) {
               return Color.fromARGB(66, 9, 121, 241);
             }
-            return Color.fromARGB(255, 114, 196, 244);
+            return Colors.blue[400];
           }),
           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)))),

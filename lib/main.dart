@@ -1,12 +1,15 @@
 import 'dart:async';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:moodmate/Providers/user_provider.dart';
 import 'package:moodmate/screens/DemoPage.dart';
 import 'package:moodmate/screens/home_screen.dart';
 import 'package:moodmate/screens/signin_screen.dart';
 import 'package:moodmate/screens/signup_screen.dart';
 import 'package:moodmate/screens/welcome_page.dart';
+import 'package:provider/provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 void main() async {
@@ -22,20 +25,49 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     // NOTE: here i am adding GetMaterialApp() because i try to use GetX and Obx class
-    return MaterialApp(
-        debugShowCheckedModeBanner: false,
-        title: 'Flutter Demo',
-        theme: ThemeData(
-          primarySwatch: Colors.blue,
-        ),
-        // home: WelcomePage()
-        home: splashPage()
-        // NOTE: this for testing
-        // home: HomeScreen()
-
-        // TODO: this for uploading the music to firebase directly from the application.
-        // home: DemoPage()
-        );
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (_)=>UserProvider())
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.blue,
+          ),
+          // home: WelcomePage()
+          home: StreamBuilder(
+            stream: FirebaseAuth.instance.authStateChanges(),
+            builder: (context, snapshot) {
+              if(snapshot.connectionState==ConnectionState.active)
+              {
+                if(snapshot.hasData)
+                {
+                    return HomeScreen();
+                }
+                else if(snapshot.hasError)
+                {
+                  return Center(
+                    child: Text("Error"),
+                  );
+                }
+              }
+              if(snapshot.connectionState==ConnectionState.waiting)
+              {
+                return Center(child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),);
+              }
+              return SignInScreen();
+            },
+          )//splashPage()
+          // NOTE: this for testing
+          // home: HomeScreen()
+      
+          // TODO: this for uploading the music to firebase directly from the application.
+          // home: DemoPage()
+          ),
+    );
   }
 }
 

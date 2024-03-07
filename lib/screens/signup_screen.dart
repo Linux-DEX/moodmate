@@ -1,8 +1,15 @@
+import 'dart:typed_data';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:moodmate/resources/auth_methods.dart';
 import 'package:moodmate/reusable_widgets/reusable_widget.dart';
 import 'package:moodmate/screens/home_screen.dart';
 import 'package:moodmate/screens/signin_screen.dart';
+import 'package:moodmate/screens/welcome_page.dart';
+import 'package:moodmate/utils.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -15,7 +22,43 @@ class _SignUpScreenState extends State<SignUpScreen> {
   TextEditingController _passwordTextController = TextEditingController();
   TextEditingController _emailTextController = TextEditingController();
   TextEditingController _userNameTextController = TextEditingController();
+  TextEditingController _userBioTextController = TextEditingController();//New Added
+  Uint8List? _image;//new Added
+  bool _isLoading=false;//new Added
   bool? isChecked = false;
+
+  void selectImage()async
+  {
+      Uint8List im= await pickImage(ImageSource.gallery);
+      setState(() {
+        _image=im;
+      });
+  }
+  void signUpUser()async
+  {
+    setState(() {
+      _isLoading=true;
+    });
+    String res = await AuthMethods().signUpUser(email:_emailTextController.text ,
+                   password: _passwordTextController.text, 
+                   username: _userNameTextController.text,
+                    bio: _userBioTextController.text,
+                    file: _image!);
+                    setState(() {
+                      _isLoading=false;
+                    });
+                    if(res != "success")
+                    {
+                      showSnackBar(res, context);
+                    }
+                    else
+                    {
+                     Navigator.pushReplacement(
+                          context,
+                          MaterialPageRoute(
+                              builder: (context) => SignInScreen()));
+                    }
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,19 +79,31 @@ class _SignUpScreenState extends State<SignUpScreen> {
             padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
             child: Column(children: <Widget>[
               SizedBox(
-                height: 35,
+                height: 50,
               ),
-              Image.asset(
-                "assets/images/signoutlogo.png",
-                width: MediaQuery.of(context).size.width,
+              Stack(
+                children: [_image!=null? CircleAvatar(radius: 64,
+                backgroundImage:MemoryImage(_image!) ,)
+                :
+                CircleAvatar(radius: 64,
+                backgroundImage: NetworkImage('https://t4.ftcdn.net/jpg/02/15/84/43/360_F_215844325_ttX9YiIIyeaR7Ne6EaLLjMAmy4GvPC69.jpg'),),
+                Positioned(child: IconButton(onPressed: selectImage,icon: const Icon(Icons.add_a_photo),),
+                bottom: -10,left: 80,)],
+                
               ),
               SizedBox(
-                height: 5,
+                height: 10,
               ),
               reusableTextField("Full Name ", Icons.person_outline, false,
                   _userNameTextController),
               SizedBox(
                 height: 20,
+              ),
+              reusableTextField("Bio ", Icons.person_outline, false,
+                  _userBioTextController),
+               SizedBox(
+                height: 20,
+                child: _isLoading?Center(child: CircularProgressIndicator()):Text(''),
               ),
               reusableTextField("Enter Email id", Icons.person_outline, false,
                   _emailTextController),
@@ -58,27 +113,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
               reusableTextField("Password", Icons.lock_outlined, true,
                   _passwordTextController),
               SizedBox(
-                height: 5,
+                height: 20,
               ),
-              Row(
-                children: <Widget>[
-                  Checkbox(
-                      value: isChecked,
-                      onChanged: (newValue) {
-                        setState(() {
-                          isChecked = newValue;
-                        });
-                      }),
-                  SizedBox(
-                    width: 5,
-                  ),
-                  Text(
-                    "I agree to terms and conditions",
-                    style: TextStyle(fontSize: 17.0),
-                  )
-                ],
-              ),
-              signInSignUpButton(context, false, () {
+              
+              //Working old Code
+              /*signInSignUpButton(context, false, () {
                     FirebaseAuth.instance
                         .createUserWithEmailAndPassword(
                             email: _emailTextController.text,
@@ -91,7 +130,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     }).onError((error, stackTrace) {
                       print("Error ${error.toString()}");
                     });
-                  }),
+                  }),*/
+                  signInSignUpButton(context, false, signUpUser,),
+
               signUpOption()
             ]),
           ),

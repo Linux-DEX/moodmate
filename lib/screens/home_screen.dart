@@ -1,7 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moodmate/screens/feed_screen.dart';
 import 'package:moodmate/screens/first_page.dart';
 import 'package:moodmate/screens/friend_screen.dart';
 import 'package:moodmate/screens/music_screen.dart';
+import 'package:moodmate/screens/post_screen.dart';
+import 'package:moodmate/screens/profile_screen.dart';
+import 'package:moodmate/screens/search_screen.dart';
 import 'package:moodmate/screens/settings_screen.dart';
 import 'package:moodmate/screens/signin_screen.dart';
 
@@ -16,9 +21,12 @@ class _HomeScreenState extends State<HomeScreen> {
   int index = 0;
   final screen = [
     FirstScreen(),
+    // PostScreen(),
     MusicScreen(),
-    FriendScreen(),
-    SettigScreen(),
+    FeedScreen(),
+    SearchScreen(),
+    //SettigScreen(),
+    ProfileScreen(uid: FirebaseAuth.instance.currentUser!.uid,)
   ];
   @override
   Widget build(BuildContext context) {
@@ -45,29 +53,27 @@ class _HomeScreenState extends State<HomeScreen> {
                   icon: Icon(Icons.home_outlined),
                   selectedIcon: Icon(Icons.home_rounded),
                   label: "home"),
+              // NavigationDestination(
+              //     icon: Icon(Icons.add_box_outlined),
+              //     selectedIcon: Icon(Icons.add_box),
+              //     label: "music"),
               NavigationDestination(
                   icon: Icon(Icons.music_note_outlined),
                   selectedIcon: Icon(Icons.music_note),
                   label: "music"),
               NavigationDestination(
-                  icon: Icon(Icons.group_outlined),
-                  selectedIcon: Icon(Icons.group),
+                  icon: Icon(Icons.photo_album_outlined),
+                  selectedIcon: Icon(Icons.photo_album_rounded),
                   label: "friend"),
+                  NavigationDestination(
+                  icon: Icon(Icons.search_outlined),
+                  selectedIcon: Icon(Icons.search_rounded),
+                  label: "Search"),
+                  
               NavigationDestination(
-                  icon: Padding(
-                    padding: EdgeInsets.all(8.0),
-                    child: Container(
-                      width: 35,
-                      height: 35,
-                      child: const CircleAvatar(
-                        backgroundImage: NetworkImage(
-                            "https://res.cloudinary.com/demo/image/facebook/65646572251.jpg"),
-                        ),
-                      ),
-                    ),
-                  // icon: Icon(Icons.settings_outlined),
-                  // selectedIcon: Icon(Icons.settings),
-                  label: "settings"),
+                  icon: Icon(Icons.person_2_outlined),
+                  selectedIcon: Icon(Icons.person_2_rounded),
+                  label: "Profile"),
             ],
           ),
         ),

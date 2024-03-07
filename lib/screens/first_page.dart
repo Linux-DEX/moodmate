@@ -1,15 +1,21 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:moodmate/Providers/user_provider.dart';
 import 'package:moodmate/components/angrey.dart';
+import 'dart:async';
 import 'package:moodmate/components/depress_list.dart';
 import 'package:moodmate/components/happy_list.dart';
+import 'package:moodmate/components/my_drawer_header.dart';
 import 'package:moodmate/components/relax_list.dart';
 import 'package:moodmate/components/sad_list.dart';
-import 'dart:async';
 import 'package:moodmate/components/stress_list.dart';
-import 'package:moodmate/main.dart';
+import 'package:moodmate/screens/day_bargraph_report.dart';
+import 'package:moodmate/screens/day_week_report.dart';
 import 'package:moodmate/screens/home_screen.dart';
-import 'package:moodmate/screens/welcome_page.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:provider/provider.dart';
+import "package:moodmate/Model/user.dart" as model;
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({super.key});
@@ -19,8 +25,33 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  static bool isVisible = true;
+  String username = ""; //New
+  @override
+  void initState() {
+    //new
+    // TODO: implement initState
+    super.initState();
+    //getUserName();
+    addData();
+  }
+
+  addData() async {
+    UserProvider _userProvider = Provider.of(context, listen: false);
+    await _userProvider.refreshUser();
+  }
+
+  void getUserName() async {
+    DocumentSnapshot snap = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(FirebaseAuth.instance.currentUser!.uid)
+        .get();
+    setState(() {
+      username = (snap.data() as Map<String, dynamic>)['username'];
+    });
+  }
+
   int current = 0;
+  bool isVisible = true;
 
   List img = [
     'depress.png',
@@ -49,69 +80,15 @@ class _FirstScreenState extends State<FirstScreen> {
     Timer(Duration(seconds: 5), () {
       setState(() {
         isVisible = !isVisible;
-        // Navigator.push(
-        //     context, MaterialPageRoute(builder: (context) => HomeScreen()));
+        Navigator.push(
+            context, MaterialPageRoute(builder: (context) => HomeScreen()));
       });
     });
   }
 
-  // void savedData() async {
-  //   print("run kar bc");
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   DateTime now = DateTime.now();
-  //   await prefs.setInt("today", now.day);
-  //   print(prefs.getInt("today"));
-  // }
-
-  // Future<void> setcurrentvalue() async {
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   current = await prefs.getInt("current") ?? 0;
-  // }
-
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   print("$isVisible initState value");
-
-  //   setcurrentvalue();
-
-  //   Timer.periodic(Duration(seconds: 10), (timer) {
-  //     if (mounted) {
-  //       setState(() {
-  //         print("callingggg");
-  //         containerVisibilityControl();
-  //         print("$isVisible checking");
-  //       });
-  //     }
-  //   });
-  // }
-
-  // void containerVisibilityControl() async {
-  //   // var now = DateTime.now();
-  //   DateTime now = DateTime.now();
-  //   DateTime midnight = DateTime(now.year, now.month, now.day, 0, 0);
-  //   // if (now.hour >= 0 && now.hour < 12) {
-  //   //   setState(() {
-  //   //     print("$isVisible setting false");
-  //   //     isVisible = true;
-  //   //   });
-  //   // }
-  //   SharedPreferences prefs = await SharedPreferences.getInstance();
-  //   int checktoday = await prefs.getInt("today") ?? now.day;
-  //   print(checktoday);
-  //   if (now.isAfter(midnight) && checktoday == now.day) {
-  //     setState(() async {
-  //       isVisible = true;
-  //       SharedPreferences prefs = await SharedPreferences.getInstance();
-  //       prefs.setInt("today", now.day + 1);
-  //       print(await prefs.getInt("today"));
-  //       print("$isVisible setting false");
-  //     });
-  //   }
-  // }
-
   @override
   Widget build(BuildContext context) {
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
@@ -135,64 +112,54 @@ class _FirstScreenState extends State<FirstScreen> {
         child: SafeArea(
           child: SingleChildScrollView(
             child: Container(
-              color: Colors.transparent,
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: ClipOval(
-                      child: SizedBox.fromSize(
-                        size: Size.fromRadius(48),
-                        child: const CircleAvatar(
-                          backgroundImage: NetworkImage(
-                              "https://res.cloudinary.com/demo/image/facebook/65646572251.jpg"),
-                        ),
+                    padding: const EdgeInsets.symmetric(vertical: 12),
+                    child: MyHeaderDrawer(
+                      uid: FirebaseAuth.instance.currentUser!.uid,
+                    ),
+                  ),
+                  Divider(
+                    color: Colors.black,
+                    endIndent: BorderSide.strokeAlignCenter,
+                    height: 4,
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.fromLTRB(8, 12, 8, 0),
+                    child: Text(
+                      "Report",
+                      style: TextStyle(
+                        fontSize: 17, 
+                        fontWeight: FontWeight.w500,
+                        decoration: TextDecoration.underline
                       ),
                     ),
                   ),
-                  Text(
-                    "USER NAME",
-                    style: TextStyle(
-                      fontSize: 17,
-                      fontWeight: FontWeight.w600,
-                    ),
-                  ),
-                  Text(
-                    "userid@gmail.com",
-                    style: TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.w500,
-                    ),
-                  ),
-                  ElevatedButton(
-                    child: Text(
-                      'logout',
-                      style: TextStyle(color: Colors.white),
-                    ),
-                    style: ElevatedButton.styleFrom(
-                        // padding: EdgeInsets.fromLTRB(
-                        //     MediaQuery.of(context).size.width * 0.2,
-                        //     20,
-                        //     MediaQuery.of(context).size.width * 0.2,
-                        //     20),
-                        primary: Color.fromARGB(255, 110, 120, 241),
-                        textStyle: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        )),
-                    onPressed: () async {
-                      var sharedPref = await SharedPreferences.getInstance();
-                      sharedPref.setBool(splashPageState.KEYLOGIN, false);
-
-                      Navigator.pushReplacement(
+                  ListTile(
+                    leading: const Icon(Icons.data_saver_off_rounded),
+                    title: Text('Daily & Weekly'),
+                    onTap: () {
+                      Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => WelcomePage(),
+                          builder: (context) => DayWeekReportScreen(),
                         ),
                       );
                     },
                   ),
+                  ListTile(
+                    leading: const Icon(Icons.percent_outlined),
+                    title: Text("Day based"),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => DayBarGraphReport(),
+                        ),
+                      );
+                    },
+                  )
                 ],
               ),
             ),
@@ -218,7 +185,7 @@ class _FirstScreenState extends State<FirstScreen> {
                             fontWeight: FontWeight.bold),
                         children: <TextSpan>[
                           TextSpan(
-                              text: " UserName",
+                              text: user.username,
                               style: TextStyle(
                                   fontSize: 25,
                                   color: Colors.blueAccent,
@@ -257,12 +224,20 @@ class _FirstScreenState extends State<FirstScreen> {
                                 crossAxisSpacing: 10,
                                 mainAxisSpacing: 10),
                         // physics: const BouncingScrollPhysics(),
-                        itemCount: items.length,
-                        // itemCount: 6,
+                        // itemCount: items.length,
+                        itemCount: 6,
                         // scrollDirection: Axis.horizontal,
                         itemBuilder: (context, index) {
                           return GestureDetector(
-                            onTap: () async {
+                            // ? static tap
+                            // onTap: () {
+                            //   setState(() {
+                            //     current = index;
+                            //   });
+                            // },
+                            // ? to change the visibility
+                            // onTap: _toggleVisibility,
+                            onTap: () {
                               current = index;
                               _toggleVisibility();
                             },
@@ -323,7 +298,6 @@ class _FirstScreenState extends State<FirstScreen> {
               Visibility(
                 visible: !isVisible,
                 child: Container(
-                  // child: listChange[current],
                   child: listChange[current],
                 ),
               )

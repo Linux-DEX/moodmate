@@ -40,11 +40,12 @@ class _SignInScreenState extends State<SignInScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   SizedBox(
-                    height: 45,
+                    height: 10,
                   ),
                   Image.asset(
                     "assets/images/signinlogo.png",
                     width: MediaQuery.of(context).size.width,
+                    height:MediaQuery.of(context).size.height*0.45 ,
                   ),
                   // signinLogoWidget("assets/images/signinlogo.png"),
                   SizedBox(
@@ -109,7 +110,7 @@ class _SignInScreenState extends State<SignInScreen> {
                             email: _emailTextController.text,
                             password: _passwordTextController.text)
                         .then((value) {
-                      print("Login");
+                      print("Log In");
                       Navigator.pushReplacement(
                           context,
                           MaterialPageRoute(

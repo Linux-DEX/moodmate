@@ -27,12 +27,12 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   String username = "";
-  int current = 0;
+  static int current = 0;
   bool isVisible = true;
   // ! New
-  int _counter = 0;
+  static int _counter = 0;
   DateTime dateTime = DateTime.now();
-  int day = 0;
+  static int day = 0;
 
   Future<void> _loadCounter() async {
     final prefs = await SharedPreferences.getInstance();
@@ -65,16 +65,19 @@ class _FirstScreenState extends State<FirstScreen> {
     print(day);
   }
 
-  void checkDay() {
+  void checkDay() async {
+
     day = dateTime.day;
     _loadCounter();
     if (day != _counter) {
-      isVisible = true;
+      isVisible = false;
       _counter = day;
       _setCounter();
       print("checkDay");
       print(_counter);
       print(day);
+    } else {
+      isVisible = true;
     }
   }
 
@@ -290,8 +293,11 @@ class _FirstScreenState extends State<FirstScreen> {
                                 // },
                                 // ? to change the visibility
                                 // onTap: _toggleVisibility,
-                                onTap: () {
+                                onTap: () async {
+                                  final prefs =
+                                      await SharedPreferences.getInstance();
                                   current = index;
+                                  prefs.setInt('current', index);
                                   _toggleVisibility();
                                 },
                                 child: Container(

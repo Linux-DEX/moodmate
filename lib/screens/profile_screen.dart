@@ -82,7 +82,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           CircleAvatar(
                             backgroundColor: Colors.grey,
-                            backgroundImage: NetworkImage(userData['photoUrl']),
+                            backgroundImage: NetworkImage(userData['photoUrl'] ?? ""),
                             radius: 40,
                           ),
                           Expanded(
@@ -163,13 +163,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         alignment: Alignment.centerLeft,
                         padding: EdgeInsets.only(top: 15),
                         child: Text(
-                          userData['username'],
+                          userData['username'] ?? "Loading...",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
                       Container(
                         alignment: Alignment.centerLeft,
-                        child: Text(userData['bio']),
+                        child: Text(userData['bio'] ?? ""),
                       ),
                       SizedBox(
                         width: MediaQuery.of(context).size.width - 50,

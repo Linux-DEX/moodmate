@@ -16,6 +16,7 @@ import 'package:moodmate/screens/day_week_report.dart';
 import 'package:moodmate/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import "package:moodmate/Model/user.dart" as model;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({super.key});
@@ -25,14 +26,70 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  String username = ""; //New
+  String username = "";
+  int current = 0;
+  bool isVisible = true;
+  // ! New
+  int _counter = 0;
+  DateTime dateTime = DateTime.now();
+  int day = 0;
+
+  Future<void> _loadCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = prefs.getInt('counter') ?? 0;
+      print("loadcoutner value");
+      print(_counter);
+      print(day);
+    });
+  }
+
+  Future<void> _setCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      prefs.setInt('counter', _counter);
+      print("setcoutner value");
+      print(_counter);
+      print(day);
+    });
+  }
+
+  Future<void> _incrementCounter() async {
+    final prefs = await SharedPreferences.getInstance();
+    setState(() {
+      _counter = (prefs.getInt('counter') ?? 0) + 1;
+      prefs.setInt('counter', _counter);
+    });
+    print("Increment function");
+    print(_counter);
+    print(day);
+  }
+
+  void checkDay() {
+    day = dateTime.day;
+    _loadCounter();
+    if (day != _counter) {
+      isVisible = true;
+      _counter = day;
+      _setCounter();
+      print("checkDay");
+      print(_counter);
+      print(day);
+    }
+  }
+
+  // ! End new code
+
   @override
   void initState() {
-    //new
     // TODO: implement initState
     super.initState();
     //getUserName();
     addData();
+    print("Init counter value");
+    print(_counter);
+    print(day);
+    checkDay();
   }
 
   addData() async {
@@ -49,9 +106,6 @@ class _FirstScreenState extends State<FirstScreen> {
       username = (snap.data() as Map<String, dynamic>)['username'];
     });
   }
-
-  int current = 0;
-  bool isVisible = true;
 
   List img = [
     'depress.png',
@@ -74,16 +128,17 @@ class _FirstScreenState extends State<FirstScreen> {
   // ? function for visibility
   void _toggleVisibility() {
     setState(() {
-      isVisible = !isVisible;
+      isVisible = false;
+      _incrementCounter();
     });
 
-    Timer(Duration(seconds: 5), () {
-      setState(() {
-        isVisible = !isVisible;
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HomeScreen()));
-      });
-    });
+    // Timer(Duration(seconds: 5), () {
+    //   setState(() {
+    //     isVisible = !isVisible;
+    //     Navigator.push(
+    //         context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    //   });
+    // });
   }
 
   @override
@@ -130,10 +185,9 @@ class _FirstScreenState extends State<FirstScreen> {
                     child: Text(
                       "Report",
                       style: TextStyle(
-                        fontSize: 17, 
-                        fontWeight: FontWeight.w500,
-                        decoration: TextDecoration.underline
-                      ),
+                          fontSize: 17,
+                          fontWeight: FontWeight.w500,
+                          decoration: TextDecoration.underline),
                     ),
                   ),
                   ListTile(
@@ -203,104 +257,79 @@ class _FirstScreenState extends State<FirstScreen> {
                 ),
               ),
               SizedBox(
-                height: 50,
+                height: 40,
               ),
-              Visibility(
-                visible: isVisible,
-                child: Center(
-                  child: Container(
-                    padding: EdgeInsets.only(top: 30),
-                    width: MediaQuery.of(context).size.width * 0.9,
-                    height: MediaQuery.of(context).size.width * 0.73,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: Colors.blue[50],
-                    ),
-                    child: GridView.builder(
-                        gridDelegate:
-                            const SliverGridDelegateWithMaxCrossAxisExtent(
-                                maxCrossAxisExtent: 100,
-                                // childAspectRatio: 3 / 2,
-                                crossAxisSpacing: 10,
-                                mainAxisSpacing: 10),
-                        // physics: const BouncingScrollPhysics(),
-                        // itemCount: items.length,
-                        itemCount: 6,
-                        // scrollDirection: Axis.horizontal,
-                        itemBuilder: (context, index) {
-                          return GestureDetector(
-                            // ? static tap
-                            // onTap: () {
-                            //   setState(() {
-                            //     current = index;
-                            //   });
-                            // },
-                            // ? to change the visibility
-                            // onTap: _toggleVisibility,
-                            onTap: () {
-                              current = index;
-                              _toggleVisibility();
-                            },
-                            child: Container(
-                              height: 100,
-                              child: Column(
-                                children: [
-                                  Container(
-                                    height: 40,
-                                    child: Center(
-                                      child: Image.asset(
-                                          'assets/images/${img[index]}'),
-                                    ),
+              isVisible
+                  ? Center(
+                      child: Container(
+                        padding: EdgeInsets.only(top: 30),
+                        width: MediaQuery.of(context).size.width * 0.9,
+                        height: MediaQuery.of(context).size.width * 0.73,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: Colors.blue[50],
+                        ),
+                        child: GridView.builder(
+                            gridDelegate:
+                                const SliverGridDelegateWithMaxCrossAxisExtent(
+                                    maxCrossAxisExtent: 100,
+                                    // childAspectRatio: 3 / 2,
+                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: 10),
+                            // physics: const BouncingScrollPhysics(),
+                            // itemCount: items.length,
+                            itemCount: 6,
+                            // scrollDirection: Axis.horizontal,
+                            itemBuilder: (context, index) {
+                              return GestureDetector(
+                                // ? static tap
+                                // onTap: () {
+                                //   setState(() {
+                                //     current = index;
+                                //   });
+                                // },
+                                // ? to change the visibility
+                                // onTap: _toggleVisibility,
+                                onTap: () {
+                                  current = index;
+                                  _toggleVisibility();
+                                },
+                                child: Container(
+                                  height: 100,
+                                  child: Column(
+                                    children: [
+                                      Container(
+                                        height: 40,
+                                        child: Center(
+                                          child: Image.asset(
+                                              'assets/images/${img[index]}'),
+                                        ),
+                                      ),
+                                      SizedBox(
+                                        height: 5.0,
+                                      ),
+                                      Text(items[index]),
+                                    ],
                                   ),
-                                  SizedBox(
-                                    height: 5.0,
-                                  ),
-                                  Text(items[index]),
-                                ],
-                              ),
-                            ),
-                          );
-                        }),
-                  ),
-                ),
-              ),
-              Visibility(
-                visible: !isVisible,
-                child: Padding(
-                  padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                  child: Text(
-                    "Today\'s Task",
-                    style: TextStyle(fontSize: 20),
-                  ),
-                ),
-              ),
-              // Container(
-              //   margin: const EdgeInsets.only(top: 30),
-              //   width: double.infinity,
-              //   height: 550,
-              //   child: Column(
-              //     mainAxisAlignment: MainAxisAlignment.center,
-              //     children: [
-              //       Icon(
-              //         icons[current],
-              //         size: 200,
-              //         color: Colors.deepPurple,
-              //       ),
-              //       const SizedBox(
-              //         height: 10,
-              //       ),
-              //       Text(
-              //         items[current],
-              //       ),
-              //     ],
-              //   ),
-              // ),
-              Visibility(
-                visible: !isVisible,
-                child: Container(
-                  child: listChange[current],
-                ),
-              )
+                                ),
+                              );
+                            }),
+                      ),
+                    )
+                  : Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                          child: Text(
+                            "Today\'s Task",
+                            style: TextStyle(fontSize: 20),
+                          ),
+                        ),
+                        Container(
+                          child: listChange[current],
+                        ),
+                      ],
+                    )
             ]),
       ),
     );

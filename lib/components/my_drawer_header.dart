@@ -56,7 +56,7 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
                 size: Size.fromRadius(48),
                 child: CircleAvatar(
                   backgroundColor: Colors.grey,
-                  backgroundImage: NetworkImage(userData['photoUrl'] ?? "https://res.cloudinary.com/demo/image/facebook/65646572251.jpg"),
+                  backgroundImage: NetworkImage(userData['photoUrl'] ?? "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_1280.png"),
                 ),
               ),
             ),

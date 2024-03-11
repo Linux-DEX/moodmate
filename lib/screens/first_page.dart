@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:moodmate/Providers/user_provider.dart';
 import 'package:moodmate/components/angrey.dart';
 import 'dart:async';
@@ -66,11 +67,12 @@ class _FirstScreenState extends State<FirstScreen> {
   }
 
   void checkDay() async {
-
+    final prefs = await SharedPreferences.getInstance();
     day = dateTime.day;
     _loadCounter();
     if (day != _counter) {
       isVisible = false;
+      prefs.setBool('visible', isVisible);
       _counter = day;
       _setCounter();
       print("checkDay");
@@ -78,7 +80,18 @@ class _FirstScreenState extends State<FirstScreen> {
       print(day);
     } else {
       isVisible = true;
+      prefs.setBool('visible', isVisible);
     }
+  }
+
+  void checkVisible() async {
+    final prefs = await SharedPreferences.getInstance();
+    isVisible = prefs.getBool('visible') ?? true;
+  }
+
+  void checkCurrent() async {
+    final prefs = await SharedPreferences.getInstance();
+    current = prefs.getInt('current') ?? 0;
   }
 
   // ! End new code
@@ -92,6 +105,8 @@ class _FirstScreenState extends State<FirstScreen> {
     print("Init counter value");
     print(_counter);
     print(day);
+    checkCurrent();
+    checkVisible();
     checkDay();
   }
 
@@ -152,19 +167,7 @@ class _FirstScreenState extends State<FirstScreen> {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black),
         backgroundColor: Colors.white,
-        actions: [
-          // Padding(
-          //   padding: EdgeInsets.all(8.0),
-          //   child: Container(
-          //     width: 35,
-          //     height: 35,
-          //     child: const CircleAvatar(
-          //       backgroundImage: NetworkImage(
-          //           "https://res.cloudinary.com/demo/image/facebook/65646572251.jpg"),
-          //     ),
-          //   ),
-          // )
-        ],
+        actions: [],
       ),
       drawer: Drawer(
         child: SafeArea(

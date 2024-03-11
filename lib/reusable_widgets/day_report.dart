@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 Container DailyReport(BuildContext context) {
-  const percentage = 50;
+  const percentage = 20;
 
   return Container(
     child: Row(

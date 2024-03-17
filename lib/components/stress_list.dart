@@ -1,16 +1,19 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:moodmate/utils.dart';
 
 class StressList extends StatefulWidget {
-  const StressList({super.key});
+  // const StressList({super.key});
+  final String uid;
+  const StressList({Key? key, required this.uid}) : super(key: key);
 
   @override
   State<StressList> createState() => StressListState();
 }
 
 class StressListState extends State<StressList> {
-  List<bool> isChecked = [false, false, false, false, false];
-  // * another way of defining list of ischecked
-  // List<bool> isChecked = List.generate(5, (_) => false);
+  List<dynamic> isChecked = [false, false, false, false, false];
   List<String> stress = [
     "5-min meditation",
     "Tidy your workspace",
@@ -27,11 +30,50 @@ class StressListState extends State<StressList> {
   ];
   List<String> image = [
     "assets/images/meditation.png",
-    "assets/images/tidyworkspace.png", 
-    "assets/images/todolist.png", 
+    "assets/images/tidyworkspace.png",
+    "assets/images/todolist.png",
     "assets/images/listenmusic.png",
     "assets/images/cleaning.png",
   ];
+
+  var userData = {};
+  getData() async {
+    try {
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+      userData = userSnap.data()!;
+      setState(() {
+        isChecked = userData['todaytask'];
+        print(userData['todaytask']);
+        print("ischeck value: $isChecked");
+      });
+    } catch (e) {
+      showSnackBar(e.toString(), context);
+    }
+  }
+
+  setUserTasks(List<dynamic> tasks) async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+
+    try {
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'todaytask': tasks});
+
+      print("updated successfully");
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +85,8 @@ class StressListState extends State<StressList> {
           padding: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 2),
           child: Card(
             elevation: 5.0,
-            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(5)),
             child: Container(
               width: MediaQuery.of(context).size.width,
               padding: EdgeInsets.symmetric(horizontal: 10.0, vertical: 10.0),
@@ -78,14 +121,15 @@ class StressListState extends State<StressList> {
                     padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
                     child: Checkbox(
                         value: isChecked[index],
-                        onChanged: (bool? newValue) {
+                        onChanged: (newValue) {
                           // * this is another way of checkbox
+                          // setState(() => {
+                          //       isChecked[index] = newValue ?? false,
+                          //     });
                           setState(() => {
-                                isChecked[index] = newValue ?? false,
-                                // print("focus clicked"),
-                                // print(isChecked[index].toString() +
-                                //     " " +
-                                //     index.toString())
+                                isChecked[index] = !isChecked[index],
+                                setUserTasks(isChecked),
+                                print(userData['todaytask']),
                               });
                         }),
                   ),

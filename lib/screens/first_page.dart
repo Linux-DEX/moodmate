@@ -18,6 +18,7 @@ import 'package:moodmate/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import "package:moodmate/Model/user.dart" as model;
 import 'package:shared_preferences/shared_preferences.dart';
+import "../reusable_widgets/resetValue.dart";
 
 class FirstScreen extends StatefulWidget {
   const FirstScreen({super.key});
@@ -28,7 +29,7 @@ class FirstScreen extends StatefulWidget {
 
 class _FirstScreenState extends State<FirstScreen> {
   String username = "";
-  static int current = 0;
+  int current = 0;
   bool isVisible = true;
   // ! New
   static int _counter = 0;
@@ -38,7 +39,7 @@ class _FirstScreenState extends State<FirstScreen> {
   Future<void> _loadCounter() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _counter = prefs.getInt('counter') ?? 0;
+      _counter = prefs.getInt('counter') ?? dateTime.day;
       print("loadcoutner value");
       print(_counter);
       print(day);
@@ -135,12 +136,24 @@ class _FirstScreenState extends State<FirstScreen> {
   ];
   List<String> items = ["depress", "stress", "anger", 'sad', "relax", "happy"];
   List listChange = [
-    Depress(),
-    StressList(),
-    AngerList(),
-    SadList(),
-    RelaxList(),
-    HappyList()
+    Depress(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    ),
+    StressList(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    ),
+    AngerList(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    ),
+    SadList(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    ),
+    RelaxList(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    ),
+    HappyList(
+      uid: FirebaseAuth.instance.currentUser!.uid,
+    )
   ];
 
   // ? function for visibility
@@ -150,7 +163,7 @@ class _FirstScreenState extends State<FirstScreen> {
       _incrementCounter();
     });
 
-    // Timer(Duration(seconds: 5), () {
+    // Timer(Duration(seconds: 60), () {
     //   setState(() {
     //     isVisible = !isVisible;
     //     Navigator.push(
@@ -299,6 +312,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                 onTap: () async {
                                   final prefs =
                                       await SharedPreferences.getInstance();
+                                  checkDayfirebase();
                                   current = index;
                                   prefs.setInt('current', index);
                                   _toggleVisibility();

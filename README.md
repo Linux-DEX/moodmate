@@ -1,2 +1,77 @@
-# Task
-    [x] Comment overflow problem 
+# User Data model
+```json
+{
+    "username" : usename,
+    "uid" : uid,
+    "email" : email,
+    "photourl" : photoUrl,
+    "bio" : bio,
+    "following" : followings,
+    "followers": followers,
+    "todaytask": [false, false, false, false, false],
+    "mood": {
+        "sunday": {
+            "depress": val,
+            "stress": val,
+            "anger": val,
+            "sad": val,
+            "relax": val,
+            "happy": val,
+        },
+        "monday": {
+            "depress": val,
+            "stress": val,
+            "anger": val,
+            "sad": val,
+            "relax": val,
+            "happy": val,
+        },
+        "tuesday": {
+            "depress": val,
+            "stress": val,
+            "anger": val,
+            "sad": val,
+            "relax": val,
+            "happy": val,
+        },
+        "wednesday": {
+            "depress": val,
+            "stress": val,
+            "anger": val,
+            "sad": val,
+            "relax": val,
+            "happy": val,
+        },
+        "thursday" :{
+            "depress": val,
+            "stress": val,
+            "anger": val,
+            "sad": val,
+            "relax": val,
+            "happy": val,
+        },
+        "friday": {
+            "depress": val,
+            "stress": val,
+            "anger": val,
+            "sad": val,
+            "relax": val,
+            "happy": val,
+        },
+        "saturday":{
+            "depress": val,
+            "stress": val,
+            "anger": val,
+            "sad": val,
+            "relax": val,
+            "happy": val,
+        }
+    },
+    "day15": val,
+    "day30": val,
+    "day45": val,
+    "day60": val,
+    "day75": val,
+    "day90": val,
+}
+```

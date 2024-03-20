@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:moodmate/utils.dart';
 
 class StressList extends StatefulWidget {
@@ -69,6 +70,29 @@ class StressListState extends State<StressList> {
     }
   }
 
+  setUserMoodValue() async {
+    String userId = FirebaseAuth.instance.currentUser!.uid;
+    int? tempVal;
+
+    DateTime now = DateTime.now();
+    String formattedDate = DateFormat('EEEE').format(now);
+    print(formattedDate);
+
+    try {
+      var temp = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+      if (temp.exists) {
+        tempVal = temp.get('mood.${formattedDate.toLowerCase()}.stress');
+      }
+      await FirebaseFirestore.instance.collection('users').doc(userId).update(
+          {'mood.${formattedDate.toLowerCase()}.stress': (tempVal! + 1)});
+    } catch (e) {
+      print(e.toString());
+    }
+  }
+
   @override
   void initState() {
     super.initState();
@@ -130,6 +154,10 @@ class StressListState extends State<StressList> {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),
                                 print(userData['todaytask']),
+                                if (isChecked[index] == true)
+                                  {
+                                    setUserMoodValue(),
+                                  }
                               });
                         }),
                   ),

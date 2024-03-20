@@ -8,7 +8,73 @@ class User {
   final String bio;
   final List followers;
   final List following;
-  const User({
+  final List<bool> todaytask = [false, false, false, false, false];
+  Map<String, Map<String, int>> mood = {
+    "sunday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "monday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "tuesday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "wednesday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "thursday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "friday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "saturday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    }
+  };
+  int day15 = 0;
+  int day30 = 0;
+  int day45 = 0;
+  int day60 = 0;
+  int day75 = 0;
+  int day90 = 0;
+
+  User({
     required this.email,
     required this.uid,
     required this.photoUrl,
@@ -26,18 +92,25 @@ class User {
         "bio": bio,
         "followers": followers,
         "following": following,
-        "todaytask" : [false, false, false, false, false],
+        "todaytask": todaytask,
+        "mood": mood,
+        "day15": day15,
+        "day30": day30,
+        "day45": day45,
+        "day60": day60,
+        "day75": day75,
+        "day90": day90,
       };
   static User fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;
     return User(
-        email: snapshot['email'],
-        uid: snapshot['uid'],
-        photoUrl: snapshot['photoUrl'],
-        username: snapshot['username'],
-        bio: snapshot['bio'],
-        followers: snapshot['followers'],
-        following: snapshot['following'],
-      );
+      email: snapshot['email'],
+      uid: snapshot['uid'],
+      photoUrl: snapshot['photoUrl'],
+      username: snapshot['username'],
+      bio: snapshot['bio'],
+      followers: snapshot['followers'],
+      following: snapshot['following'],
+    );
   }
 }

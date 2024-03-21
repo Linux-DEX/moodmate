@@ -1,15 +1,51 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:moodmate/reusable_widgets/day_report.dart';
 import 'package:moodmate/reusable_widgets/weekly_report.dart';
+import 'package:moodmate/utils.dart';
 
 class DayWeekReportScreen extends StatefulWidget {
-  const DayWeekReportScreen({super.key});
+  // const DayWeekReportScreen({super.key});
+  final String uid;
+  const DayWeekReportScreen({super.key, required this.uid});
 
   @override
   State<DayWeekReportScreen> createState() => _DayWeekReportScreenState();
 }
 
 class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
+  double dayPercentage = 0;
+  String previousDayName = "";
+
+  var userData = {};
+  getData() async {
+    try {
+      DateTime now = DateTime.now();
+      DateTime previousDay = now.subtract(Duration(days: 1));
+      previousDayName = DateFormat('EEEE').format(previousDay).toLowerCase();
+      var userSnap = await FirebaseFirestore.instance
+          .collection('users')
+          .doc(widget.uid)
+          .get();
+      userData = userSnap.data()!;
+      print(previousDayName);
+      print(userData['dayMood']![previousDayName]);
+      String temp = userData['dayMood']![previousDayName];
+      int value = userData['moodValue']![temp];
+      dayPercentage = (value * 100) / 5;
+      setState(() {});
+    } catch (e) {
+      showSnackBar(e.toString(), context);
+    }
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -36,7 +72,7 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
                     ),
                   ),
                 ),
-                DailyReport(context),
+                DailyReport(context, dayPercentage),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.05),
                 Padding(
                   padding: EdgeInsets.fromLTRB(10, 2, 10, 10),

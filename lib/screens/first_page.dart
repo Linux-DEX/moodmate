@@ -216,7 +216,9 @@ class _FirstScreenState extends State<FirstScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DayWeekReportScreen(),
+                          builder: (context) => DayWeekReportScreen(
+                            uid: FirebaseAuth.instance.currentUser!.uid,
+                          ),
                         ),
                       );
                     },

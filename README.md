@@ -1,4 +1,5 @@
 # User Data model
+
 ```json
 {
     "username" : usename,
@@ -9,64 +10,23 @@
     "following" : followings,
     "followers": followers,
     "todaytask": [false, false, false, false, false],
-    "mood": {
-        "sunday": {
-            "depress": val,
-            "stress": val,
-            "anger": val,
-            "sad": val,
-            "relax": val,
-            "happy": val,
-        },
-        "monday": {
-            "depress": val,
-            "stress": val,
-            "anger": val,
-            "sad": val,
-            "relax": val,
-            "happy": val,
-        },
-        "tuesday": {
-            "depress": val,
-            "stress": val,
-            "anger": val,
-            "sad": val,
-            "relax": val,
-            "happy": val,
-        },
-        "wednesday": {
-            "depress": val,
-            "stress": val,
-            "anger": val,
-            "sad": val,
-            "relax": val,
-            "happy": val,
-        },
-        "thursday" :{
-            "depress": val,
-            "stress": val,
-            "anger": val,
-            "sad": val,
-            "relax": val,
-            "happy": val,
-        },
-        "friday": {
-            "depress": val,
-            "stress": val,
-            "anger": val,
-            "sad": val,
-            "relax": val,
-            "happy": val,
-        },
-        "saturday":{
-            "depress": val,
-            "stress": val,
-            "anger": val,
-            "sad": val,
-            "relax": val,
-            "happy": val,
-        }
-    },
+  "dayMood": {
+    "sunday": "",
+    "monday": "",
+    "tuesday": "",
+    "wednesday": "",
+    "thursday": "",
+    "friday": "",
+    "saturday": "",
+  };
+  "moodValue": { 
+    "depress": 0,
+    "stress": 0,
+    "anger": 0,
+    "sad": 0,
+    "relax": 0,
+    "happy": 0,
+  };
     "day15": val,
     "day30": val,
     "day45": val,

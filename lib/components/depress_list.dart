@@ -38,6 +38,7 @@ class _DepressState extends State<Depress> {
     "assets/images/walkoutside.png"
   ];
 
+  int limitValue = 0;
   var userData = {};
   getData() async {
     try {
@@ -84,13 +85,18 @@ class _DepressState extends State<Depress> {
           .collection('users')
           .doc(widget.uid)
           .get();
+      limitValue = temp.get('moodValue.depress');
       if (temp.exists) {
-        tempVal = temp.get('mood.${formattedDate.toLowerCase()}.depress');
+        tempVal = temp.get('moodValue.depress');
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'mood.${formattedDate.toLowerCase()}.depress': (tempVal! + 1)});
+          .update({'moodValue.depress': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'dayMood.${formattedDate.toLowerCase()}': "depress"});
     } catch (e) {
       print(e.toString());
     }
@@ -153,7 +159,7 @@ class _DepressState extends State<Depress> {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),
                                 print(userData['todaytask']),
-                                if (isChecked[index] == true)
+                                if (isChecked[index] == true && limitValue < 4)
                                   {
                                     setUserMoodValue(),
                                   }

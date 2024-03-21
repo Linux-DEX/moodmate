@@ -37,6 +37,7 @@ class _AngerListState extends State<AngerList> {
     "assets/images/jumpingjack.png"
   ];
 
+  int limitValue = 0;
   var userData = {};
   getData() async {
     try {
@@ -70,7 +71,7 @@ class _AngerListState extends State<AngerList> {
     }
   }
 
-    setUserMoodValue() async {
+  setUserMoodValue() async {
     String userId = FirebaseAuth.instance.currentUser!.uid;
     int? tempVal;
 
@@ -83,13 +84,18 @@ class _AngerListState extends State<AngerList> {
           .collection('users')
           .doc(widget.uid)
           .get();
+      limitValue = temp.get('moodValue.anger');
       if (temp.exists) {
-        tempVal = temp.get('mood.${formattedDate.toLowerCase()}.anger');
+        tempVal = temp.get('moodValue.anger');
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'mood.${formattedDate.toLowerCase()}.anger': (tempVal! + 1)});
+          .update({'moodValue.anger': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'dayMood.${formattedDate.toLowerCase()}': "anger"});
     } catch (e) {
       print(e.toString());
     }
@@ -154,7 +160,7 @@ class _AngerListState extends State<AngerList> {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),
                                 print(userData['todaytask']),
-                                if (isChecked[index] == true)
+                                if (isChecked[index] == true && limitValue < 4)
                                   {
                                     setUserMoodValue(),
                                   }

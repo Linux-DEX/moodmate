@@ -37,6 +37,7 @@ class _HappyListState extends State<HappyList> {
     "assets/images/happydance.png"
   ];
 
+  int limitValue = 0;
   var userData = {};
   getData() async {
     try {
@@ -83,11 +84,18 @@ class _HappyListState extends State<HappyList> {
           .collection('users')
           .doc(widget.uid)
           .get();
+      limitValue = temp.get('moodValue.happy');
       if (temp.exists) {
-        tempVal = temp.get('mood.${formattedDate.toLowerCase()}.happy');
+        tempVal = temp.get('moodValue.happy');
       }
-      await FirebaseFirestore.instance.collection('users').doc(userId).update(
-          {'mood.${formattedDate.toLowerCase()}.happy': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'moodValue.happy': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'dayMood.${formattedDate.toLowerCase()}': "happy"});
     } catch (e) {
       print(e.toString());
     }
@@ -151,7 +159,7 @@ class _HappyListState extends State<HappyList> {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),
                                 print(userData['todaytask']),
-                                if (isChecked[index] == true)
+                                if (isChecked[index] == true && limitValue < 4)
                                   {
                                     setUserMoodValue(),
                                   }

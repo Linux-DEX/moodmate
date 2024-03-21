@@ -37,6 +37,7 @@ class StressListState extends State<StressList> {
     "assets/images/cleaning.png",
   ];
 
+  int limitValue = 0;
   var userData = {};
   getData() async {
     try {
@@ -71,7 +72,7 @@ class StressListState extends State<StressList> {
   }
 
   setUserMoodValue() async {
-    String userId = FirebaseAuth.instance.currentUser!.uid;
+       String userId = FirebaseAuth.instance.currentUser!.uid;
     int? tempVal;
 
     DateTime now = DateTime.now();
@@ -83,11 +84,18 @@ class StressListState extends State<StressList> {
           .collection('users')
           .doc(widget.uid)
           .get();
+      limitValue = temp.get('moodValue.stress');
       if (temp.exists) {
-        tempVal = temp.get('mood.${formattedDate.toLowerCase()}.stress');
+        tempVal = temp.get('moodValue.stress');
       }
-      await FirebaseFirestore.instance.collection('users').doc(userId).update(
-          {'mood.${formattedDate.toLowerCase()}.stress': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'moodValue.stress': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'dayMood.${formattedDate.toLowerCase()}': "stress"});
     } catch (e) {
       print(e.toString());
     }
@@ -154,7 +162,7 @@ class StressListState extends State<StressList> {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),
                                 print(userData['todaytask']),
-                                if (isChecked[index] == true)
+                                if (isChecked[index] == true && limitValue < 4)
                                   {
                                     setUserMoodValue(),
                                   }

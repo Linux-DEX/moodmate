@@ -9,63 +9,22 @@ class User {
   final List followers;
   final List following;
   final List<bool> todaytask = [false, false, false, false, false];
-  Map<String, Map<String, int>> mood = {
-    "sunday": {
-      "depress": 0,
-      "stress": 0,
-      "anger": 0,
-      "sad": 0,
-      "relax": 0,
-      "happy": 0,
-    },
-    "monday": {
-      "depress": 0,
-      "stress": 0,
-      "anger": 0,
-      "sad": 0,
-      "relax": 0,
-      "happy": 0,
-    },
-    "tuesday": {
-      "depress": 0,
-      "stress": 0,
-      "anger": 0,
-      "sad": 0,
-      "relax": 0,
-      "happy": 0,
-    },
-    "wednesday": {
-      "depress": 0,
-      "stress": 0,
-      "anger": 0,
-      "sad": 0,
-      "relax": 0,
-      "happy": 0,
-    },
-    "thursday": {
-      "depress": 0,
-      "stress": 0,
-      "anger": 0,
-      "sad": 0,
-      "relax": 0,
-      "happy": 0,
-    },
-    "friday": {
-      "depress": 0,
-      "stress": 0,
-      "anger": 0,
-      "sad": 0,
-      "relax": 0,
-      "happy": 0,
-    },
-    "saturday": {
-      "depress": 0,
-      "stress": 0,
-      "anger": 0,
-      "sad": 0,
-      "relax": 0,
-      "happy": 0,
-    }
+  Map<String, String> dayMood = {
+    "sunday": "",
+    "monday": "",
+    "tuesday": "",
+    "wednesday": "",
+    "thursday": "",
+    "friday": "",
+    "saturday": "",
+  };
+  Map<String, int> moodValue = {
+    "depress": 0,
+    "stress": 0,
+    "anger": 0,
+    "sad": 0,
+    "relax": 0,
+    "happy": 0,
   };
   int day15 = 0;
   int day30 = 0;
@@ -93,7 +52,8 @@ class User {
         "followers": followers,
         "following": following,
         "todaytask": todaytask,
-        "mood": mood,
+        "dayMood": dayMood,
+        "moodValue": moodValue,
         "day15": day15,
         "day30": day30,
         "day45": day45,

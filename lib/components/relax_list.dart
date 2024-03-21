@@ -37,6 +37,7 @@ class _RelaxListState extends State<RelaxList> {
     "assets/images/nature.png"
   ];
 
+  int limitValue = 0;
   var userData = {};
   getData() async {
     try {
@@ -83,11 +84,18 @@ class _RelaxListState extends State<RelaxList> {
           .collection('users')
           .doc(widget.uid)
           .get();
+      limitValue = temp.get('moodValue.relax');
       if (temp.exists) {
-        tempVal = temp.get('mood.${formattedDate.toLowerCase()}.relax');
+        tempVal = temp.get('moodValue.relax');
       }
-      await FirebaseFirestore.instance.collection('users').doc(userId).update(
-          {'mood.${formattedDate.toLowerCase()}.relax': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'moodValue.relax': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'dayMood.${formattedDate.toLowerCase()}': "relax"});
     } catch (e) {
       print(e.toString());
     }
@@ -151,7 +159,7 @@ class _RelaxListState extends State<RelaxList> {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),
                                 print(userData['todaytask']),
-                                if (isChecked[index] == true)
+                                if (isChecked[index] == true && limitValue < 4)
                                   {
                                     setUserMoodValue(),
                                   }

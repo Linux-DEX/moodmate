@@ -37,6 +37,7 @@ class _SadListState extends State<SadList> {
     "assets/images/bath.png"
   ];
 
+  int limitValue = 0;
   var userData = {};
   getData() async {
     try {
@@ -83,11 +84,18 @@ class _SadListState extends State<SadList> {
           .collection('users')
           .doc(widget.uid)
           .get();
+      limitValue = temp.get('moodValue.sad');
       if (temp.exists) {
-        tempVal = temp.get('mood.${formattedDate.toLowerCase()}.sad');
+        tempVal = temp.get('moodValue.sad');
       }
-      await FirebaseFirestore.instance.collection('users').doc(userId).update(
-          {'mood.${formattedDate.toLowerCase()}.sad': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'moodValue.sad': (tempVal! + 1)});
+      await FirebaseFirestore.instance
+          .collection('users')
+          .doc(userId)
+          .update({'dayMood.${formattedDate.toLowerCase()}': "sad"});
     } catch (e) {
       print(e.toString());
     }
@@ -151,7 +159,7 @@ class _SadListState extends State<SadList> {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),
                                 print(userData['todaytask']),
-                                if (isChecked[index] == true)
+                                if (isChecked[index] == true && limitValue < 4)
                                   {
                                     setUserMoodValue(),
                                   }

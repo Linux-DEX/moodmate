@@ -59,7 +59,10 @@ class _FirstScreenState extends State<FirstScreen> {
   Future<void> _incrementCounter() async {
     final prefs = await SharedPreferences.getInstance();
     setState(() {
-      _counter = (prefs.getInt('counter') ?? 0) + 1;
+      // _counter = (prefs.getInt('counter') ?? 0) + 1;
+      DateTime now = DateTime.now();
+      DateTime nextDay = now.add(Duration(days: 1));
+      _counter = nextDay.day;
       prefs.setInt('counter', _counter);
     });
     print("Increment function");

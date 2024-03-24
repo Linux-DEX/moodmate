@@ -30,97 +30,99 @@ class _SignInScreenState extends State<SignInScreen> {
               fontSize: 24, color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
-      body: Container(
-        width: MediaQuery.of(context).size.width,
-        height: MediaQuery.of(context).size.height,
-        child: SingleChildScrollView(
-          child: Padding(
-            padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
-            child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Image.asset(
-                    "assets/images/signinlogo.png",
-                    width: MediaQuery.of(context).size.width,
-                    height:MediaQuery.of(context).size.height*0.45 ,
-                  ),
-                  // signinLogoWidget("assets/images/signinlogo.png"),
-                  SizedBox(
-                    height: 5,
-                  ),
-                  RichText(
-                      textAlign: TextAlign.left,
-                      text: TextSpan(
-                          text: "Welcome",
-                          style: TextStyle(
-                              fontSize: 25,
-                              color: Colors.black,
-                              fontWeight: FontWeight.bold),
-                          children: <TextSpan>[
-                            TextSpan(
-                                text: " Back!",
-                                style: TextStyle(
-                                    fontSize: 25,
-                                    color: Colors.blueAccent,
-                                    fontWeight: FontWeight.bold))
-                          ])),
-                  Text("Continue your calmness journey."),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  reusableTextField("Enter UserId", Icons.person_outline, false,
-                      _emailTextController),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  reusableTextField("Enter Password", Icons.lock_outlined, true,
-                      _passwordTextController),
-                  SizedBox(
-                    height: 3,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => ForgotPasswordScreen()));
-                        },
-                        child: const Text(
-                          " Forgot Password",
-                          style: TextStyle(
-                              color: Color.fromARGB(255, 84, 187, 228),
-                              fontWeight: FontWeight.bold),
+      body: SafeArea(
+        child: Container(
+          width: MediaQuery.of(context).size.width,
+          height: MediaQuery.of(context).size.height,
+          child: SingleChildScrollView(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(20, 0, 20, 0),
+              child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Image.asset(
+                      "assets/images/signinlogo.png",
+                      width: MediaQuery.of(context).size.width,
+                      height:MediaQuery.of(context).size.height*0.37 ,
+                    ),
+                    // signinLogoWidget("assets/images/signinlogo.png"),
+                    SizedBox(
+                      height: 5,
+                    ),
+                    RichText(
+                        textAlign: TextAlign.left,
+                        text: TextSpan(
+                            text: "Welcome",
+                            style: TextStyle(
+                                fontSize: 25,
+                                color: Colors.black,
+                                fontWeight: FontWeight.bold),
+                            children: <TextSpan>[
+                              TextSpan(
+                                  text: " Back!",
+                                  style: TextStyle(
+                                      fontSize: 25,
+                                      color: Colors.blueAccent,
+                                      fontWeight: FontWeight.bold))
+                            ])),
+                    Text("Continue your calmness journey."),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    reusableTextField("Enter UserId", Icons.person_outline, false,
+                        _emailTextController),
+                    SizedBox(
+                      height: 20,
+                    ),
+                    reusableTextField("Enter Password", Icons.lock_outlined, true,
+                        _passwordTextController),
+                    SizedBox(
+                      height: 3,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                    builder: (context) => ForgotPasswordScreen()));
+                          },
+                          child: const Text(
+                            " Forgot Password",
+                            style: TextStyle(
+                                color: Color.fromARGB(255, 84, 187, 228),
+                                fontWeight: FontWeight.bold),
+                          ),
                         ),
-                      ),
-                    ],
-                  ),
-                  signInSignUpButton(context, true, () async {
-                    // FIXME: do testing for this code here and async above
-                    var sharedPref = await SharedPreferences.getInstance();
-                    sharedPref.setBool(splashPageState.KEYLOGIN, true);
-
-                    FirebaseAuth.instance
-                        .signInWithEmailAndPassword(
-                            email: _emailTextController.text,
-                            password: _passwordTextController.text)
-                        .then((value) {
-                      print("Log In");
-                      Navigator.pushReplacement(
-                          context,
-                          MaterialPageRoute(
-                              builder: (context) => HomeScreen()));
-                    }).onError((error, stackTrace) {
-                      print("Error ${error.toString()}");
-                    });
-                  }),
-                  signUpOption()
-                ]),
+                      ],
+                    ),
+                    signInSignUpButton(context, true, () async {
+                      // FIXME: do testing for this code here and async above
+                      var sharedPref = await SharedPreferences.getInstance();
+                      sharedPref.setBool(splashPageState.KEYLOGIN, true);
+        
+                      FirebaseAuth.instance
+                          .signInWithEmailAndPassword(
+                              email: _emailTextController.text,
+                              password: _passwordTextController.text)
+                          .then((value) {
+                        print("Log In");
+                        Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => HomeScreen()));
+                      }).onError((error, stackTrace) {
+                        print("Error ${error.toString()}");
+                      });
+                    }),
+                    signUpOption()
+                  ]),
+            ),
           ),
         ),
       ),

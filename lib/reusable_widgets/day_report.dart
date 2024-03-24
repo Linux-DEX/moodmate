@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:percent_indicator/linear_percent_indicator.dart';
 
 Container DailyReport(BuildContext context, double perc) {
-  double percentage = perc;
+  double percentage = perc ?? 0;
 
   return Container(
     child: Row(
@@ -33,7 +33,7 @@ Container DailyReport(BuildContext context, double perc) {
           animation: true,
           lineHeight: 20.0,
           animationDuration: 1000,
-          percent: percentage / 100,
+          percent: percentage < 0 ? 0 : percentage / 100,
           progressColor: (percentage / 100 < 0.5
               ? Colors.redAccent.shade200
               : Colors.blueAccent.shade200),

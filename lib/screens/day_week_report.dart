@@ -86,7 +86,7 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                WeeklyReport(context),
+                WeeklyReportClass(),
               ],
             ),
           ),

@@ -52,7 +52,7 @@ class StressListState extends State<StressList> {
         print("ischeck value: $isChecked");
       });
     } catch (e) {
-      showSnackBar(e.toString(), context);
+      print("Error : ${e}");
     }
   }
 
@@ -72,7 +72,7 @@ class StressListState extends State<StressList> {
   }
 
   setUserMoodValue() async {
-       String userId = FirebaseAuth.instance.currentUser!.uid;
+    String userId = FirebaseAuth.instance.currentUser!.uid;
     int? tempVal;
 
     DateTime now = DateTime.now();

@@ -52,7 +52,7 @@ class _RelaxListState extends State<RelaxList> {
         print("ischeck value: $isChecked");
       });
     } catch (e) {
-      showSnackBar(e.toString(), context);
+      print("Error : ${e}");
     }
   }
 

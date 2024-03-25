@@ -2,9 +2,7 @@ import 'package:intl/intl.dart';
 
 main() {
   DateTime now = DateTime.now();
-
-  // Calculate previous day's date
-  DateTime nextDay = now.add(Duration(days: 1));
-
-  print(nextDay.day);
+  // DateTime previousDay = now.subtract(Duration(days: 1));
+  String today = DateFormat('EEEE').format(now).toLowerCase();
+  print(today);
 }

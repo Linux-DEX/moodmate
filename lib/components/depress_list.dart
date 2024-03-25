@@ -53,7 +53,7 @@ class _DepressState extends State<Depress> {
         print("ischeck value: $isChecked");
       });
     } catch (e) {
-      showSnackBar(e.toString(), context);
+      print("Error : ${e}");
     }
   }
 

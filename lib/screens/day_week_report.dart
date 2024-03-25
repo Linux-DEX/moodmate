@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:moodmate/reusable_widgets/day_report.dart';
 import 'package:moodmate/reusable_widgets/weekly_report.dart';
-import 'package:moodmate/utils.dart';
 
 class DayWeekReportScreen extends StatefulWidget {
   // const DayWeekReportScreen({super.key});
@@ -36,7 +35,8 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
       dayPercentage = (value * 100) / 5;
       setState(() {});
     } catch (e) {
-      showSnackBar(e.toString(), context);
+      // showSnackBar(e.toString(), context);
+      print("Error : ${e}");
     }
   }
 
@@ -86,7 +86,7 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                WeeklyReportClass(),
+                WeeklyReportClass(uid: widget.uid),
               ],
             ),
           ),

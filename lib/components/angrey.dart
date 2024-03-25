@@ -52,7 +52,7 @@ class _AngerListState extends State<AngerList> {
         print("ischeck value: $isChecked");
       });
     } catch (e) {
-      showSnackBar(e.toString(), context);
+      print("Error : ${e}");
     }
   }
 

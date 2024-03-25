@@ -52,7 +52,7 @@ class _SadListState extends State<SadList> {
         print("ischeck value: $isChecked");
       });
     } catch (e) {
-      showSnackBar(e.toString(), context);
+      print("Error : ${e}");
     }
   }
 

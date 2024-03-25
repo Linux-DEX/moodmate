@@ -77,7 +77,7 @@ class _DepressState extends State<Depress> {
     int? tempVal;
 
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('EEEE').format(now);
+    String formattedDate = DateFormat('EEEE').format(now).toLowerCase();
     print(formattedDate);
 
     try {
@@ -85,18 +85,18 @@ class _DepressState extends State<Depress> {
           .collection('users')
           .doc(widget.uid)
           .get();
-      limitValue = temp.get('moodValue.depress');
+      limitValue = temp.get('moodValue.${formattedDate}.depress');
       if (temp.exists) {
-        tempVal = temp.get('moodValue.depress');
+        tempVal = temp.get('moodValue.${formattedDate}.depress');
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'moodValue.depress': (tempVal! + 1)});
+          .update({'moodValue.${formattedDate}.depress': (tempVal! + 1)});
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'dayMood.${formattedDate.toLowerCase()}': "depress"});
+          .update({'dayMood.${formattedDate}': "depress"});
     } catch (e) {
       print(e.toString());
     }

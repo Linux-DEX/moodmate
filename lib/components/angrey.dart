@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:moodmate/utils.dart';
 
 class AngerList extends StatefulWidget {
   // const AngerList({super.key});
@@ -76,7 +75,7 @@ class _AngerListState extends State<AngerList> {
     int? tempVal;
 
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('EEEE').format(now);
+    String formattedDate = DateFormat('EEEE').format(now).toLowerCase();
     print(formattedDate);
 
     try {
@@ -84,18 +83,18 @@ class _AngerListState extends State<AngerList> {
           .collection('users')
           .doc(widget.uid)
           .get();
-      limitValue = temp.get('moodValue.anger');
+      limitValue = temp.get('moodValue.${formattedDate}.anger');
       if (temp.exists) {
-        tempVal = temp.get('moodValue.anger');
+        tempVal = temp.get('moodValue.${formattedDate}.anger');
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'moodValue.anger': (tempVal! + 1)});
+          .update({'moodValue.${formattedDate}.anger': (tempVal! + 1)});
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'dayMood.${formattedDate.toLowerCase()}': "anger"});
+          .update({'dayMood.${formattedDate}': "anger"});
     } catch (e) {
       print(e.toString());
     }

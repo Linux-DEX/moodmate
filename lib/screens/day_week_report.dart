@@ -31,7 +31,7 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
       print(previousDayName);
       print(userData['dayMood']![previousDayName]);
       String temp = userData['dayMood']![previousDayName];
-      int value = userData['moodValue']![temp];
+      int value = userData['moodValue']![previousDayName]![temp];
       dayPercentage = (value * 100) / 5;
       setState(() {});
     } catch (e) {

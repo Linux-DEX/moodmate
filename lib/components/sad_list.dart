@@ -76,7 +76,7 @@ class _SadListState extends State<SadList> {
     int? tempVal;
 
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('EEEE').format(now);
+    String formattedDate = DateFormat('EEEE').format(now).toLowerCase();
     print(formattedDate);
 
     try {
@@ -84,18 +84,18 @@ class _SadListState extends State<SadList> {
           .collection('users')
           .doc(widget.uid)
           .get();
-      limitValue = temp.get('moodValue.sad');
+      limitValue = temp.get('moodValue.${formattedDate}.sad');
       if (temp.exists) {
-        tempVal = temp.get('moodValue.sad');
+        tempVal = temp.get('moodValue.${formattedDate}.sad');
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'moodValue.sad': (tempVal! + 1)});
+          .update({'moodValue.${formattedDate}.sad': (tempVal! + 1)});
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'dayMood.${formattedDate.toLowerCase()}': "sad"});
+          .update({'dayMood.${formattedDate}': "sad"});
     } catch (e) {
       print(e.toString());
     }

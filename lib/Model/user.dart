@@ -16,15 +16,132 @@ class User {
     "wednesday": "",
     "thursday": "",
     "friday": "",
-    "saturday": "",
+    "saturday": ""
   };
-  Map<String, int> moodValue = {
-    "depress": 0,
-    "stress": 0,
-    "anger": 0,
-    "sad": 0,
-    "relax": 0,
-    "happy": 0,
+  Map<String, Map<String, int>> moodValue = {
+    "sunday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "monday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "tuesday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "wednesday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "thursday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "friday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "saturday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    }
+  };
+  Map<String, String> prevDayMood = {
+    "sunday": "",
+    "monday": "",
+    "tuesday": "",
+    "wednesday": "",
+    "thursday": "",
+    "friday": "",
+    "saturday": ""
+  };
+  Map<String, Map<String, int>> prevMoodValue = {
+    "sunday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "monday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "tuesday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "wednesday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "thursday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "friday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    },
+    "saturday": {
+      "depress": 0,
+      "stress": 0,
+      "anger": 0,
+      "sad": 0,
+      "relax": 0,
+      "happy": 0,
+    }
   };
   int day15 = 0;
   int day30 = 0;
@@ -54,6 +171,8 @@ class User {
         "todaytask": todaytask,
         "dayMood": dayMood,
         "moodValue": moodValue,
+        "prevDayMood": prevDayMood,
+        "prevMoodValue": prevMoodValue,
         "day15": day15,
         "day30": day30,
         "day45": day45,

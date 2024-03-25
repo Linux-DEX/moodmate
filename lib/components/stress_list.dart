@@ -76,7 +76,7 @@ class StressListState extends State<StressList> {
     int? tempVal;
 
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('EEEE').format(now);
+    String formattedDate = DateFormat('EEEE').format(now).toLowerCase();
     print(formattedDate);
 
     try {
@@ -84,18 +84,18 @@ class StressListState extends State<StressList> {
           .collection('users')
           .doc(widget.uid)
           .get();
-      limitValue = temp.get('moodValue.stress');
+      limitValue = temp.get('moodValue.${formattedDate}.stress');
       if (temp.exists) {
-        tempVal = temp.get('moodValue.stress');
+        tempVal = temp.get('moodValue.${formattedDate}.stress');
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'moodValue.stress': (tempVal! + 1)});
+          .update({'moodValue.${formattedDate}.stress': (tempVal! + 1)});
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'dayMood.${formattedDate.toLowerCase()}': "stress"});
+          .update({'dayMood.${formattedDate}': "stress"});
     } catch (e) {
       print(e.toString());
     }

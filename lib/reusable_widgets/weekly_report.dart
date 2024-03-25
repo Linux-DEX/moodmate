@@ -109,13 +109,13 @@ class _WeeklyReportClassState extends State<WeeklyReportClass> {
           .doc(widget.uid)
           .get();
       userData = userSnap.data()!;
-      dayPerc[0] = userData['moodValue']![userData['dayMood']!['monday']];
-      dayPerc[1] = userData['moodValue']![userData['dayMood']!['tuesday']];
-      dayPerc[2] = userData['moodValue']![userData['dayMood']!['wednesday']];
-      dayPerc[3] = userData['moodValue']![userData['dayMood']!['thursday']];
-      dayPerc[4] = userData['moodValue']![userData['dayMood']!['friday']];
-      dayPerc[5] = userData['moodValue']![userData['dayMood']!['saturday']];
-      dayPerc[6] = userData['moodValue']![userData['dayMood']!['sunday']];
+      dayPerc[0] = userData['moodValue']!['monday']![userData['dayMood']!['monday']] ?? 0;
+      dayPerc[1] = userData['moodValue']!['tuesday']![userData['dayMood']!['tuesday']] ?? 0;
+      dayPerc[2] = userData['moodValue']!['wednesday']![userData['dayMood']!['wednesday']] ?? 0;
+      dayPerc[3] = userData['moodValue']!['thursday']![userData['dayMood']!['thursday']] ?? 0;
+      dayPerc[4] = userData['moodValue']!['friday']![userData['dayMood']!['friday']] ?? 0;
+      dayPerc[5] = userData['moodValue']!['saturday']![userData['dayMood']!['saturday']] ?? 0;
+      dayPerc[6] = userData['moodValue']!['sunday']![userData['dayMood']!['sunday']] ?? 0;
       setState(() {});
     } catch (e) {
       // showSnackBar(e.toString(), context);
@@ -140,19 +140,40 @@ class _WeeklyReportClassState extends State<WeeklyReportClass> {
         // crossAxisSpacing: 10,
         childAspectRatio: 7 / 10,
         children: [
-          circular(((dayPerc[0] / 5) * 100).toInt(), "MON", userData['dayMood']!['monday'] ?? "string",
+          circular(
+              ((dayPerc[0] / 5) * 100).toInt(),
+              "MON",
+              userData['dayMood']!['monday'] ?? "string",
               Colors.redAccent.shade400),
-          circular(((dayPerc[1] / 5) * 100).toInt(), "TUE", userData['dayMood']!['tuesday'] ?? "string",
+          circular(
+              ((dayPerc[1] / 5) * 100).toInt(),
+              "TUE",
+              userData['dayMood']!['tuesday'] ?? "string",
               Colors.orangeAccent.shade400),
-          circular(((dayPerc[2] / 5) * 100).toInt(), "WED", userData['dayMood']!['wednesday'] ?? "string",
+          circular(
+              ((dayPerc[2] / 5) * 100).toInt(),
+              "WED",
+              userData['dayMood']!['wednesday'] ?? "string",
               Colors.yellowAccent.shade400),
-          circular(((dayPerc[3] / 5) * 100).toInt(), "THUR", userData['dayMood']!['thursday'] ?? "string",
+          circular(
+              ((dayPerc[3] / 5) * 100).toInt(),
+              "THUR",
+              userData['dayMood']!['thursday'] ?? "string",
               Colors.greenAccent.shade400),
-          circular(((dayPerc[4] / 5) * 100).toInt(), "FRI", userData['dayMood']!['friday'] ?? "string",
+          circular(
+              ((dayPerc[4] / 5) * 100).toInt(),
+              "FRI",
+              userData['dayMood']!['friday'] ?? "string",
               Colors.blueAccent.shade400),
-          circular(((dayPerc[5] / 5) * 100).toInt(), "SAT", userData['dayMood']!['saturday'] ?? "string",
+          circular(
+              ((dayPerc[5] / 5) * 100).toInt(),
+              "SAT",
+              userData['dayMood']!['saturday'] ?? "string",
               Colors.indigoAccent.shade400),
-          circular(((dayPerc[6] / 5) * 100).toInt(), "SUN", userData['dayMood']!['sunday'] ?? "string",
+          circular(
+              ((dayPerc[6] / 5) * 100).toInt(),
+              "SUN",
+              userData['dayMood']!['sunday'] ?? "string",
               Colors.deepPurpleAccent.shade400),
         ],
       )),

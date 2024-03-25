@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:moodmate/Providers/user_provider.dart';
 import 'package:moodmate/components/angrey.dart';
 import 'dart:async';
@@ -14,7 +12,6 @@ import 'package:moodmate/components/sad_list.dart';
 import 'package:moodmate/components/stress_list.dart';
 import 'package:moodmate/screens/day_bargraph_report.dart';
 import 'package:moodmate/screens/day_week_report.dart';
-import 'package:moodmate/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import "package:moodmate/Model/user.dart" as model;
 import 'package:shared_preferences/shared_preferences.dart';

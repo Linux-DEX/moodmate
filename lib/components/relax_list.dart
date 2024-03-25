@@ -76,7 +76,7 @@ class _RelaxListState extends State<RelaxList> {
     int? tempVal;
 
     DateTime now = DateTime.now();
-    String formattedDate = DateFormat('EEEE').format(now);
+    String formattedDate = DateFormat('EEEE').format(now).toLowerCase();
     print(formattedDate);
 
     try {
@@ -84,18 +84,18 @@ class _RelaxListState extends State<RelaxList> {
           .collection('users')
           .doc(widget.uid)
           .get();
-      limitValue = temp.get('moodValue.relax');
+      limitValue = temp.get('moodValue.${formattedDate}.relax');
       if (temp.exists) {
-        tempVal = temp.get('moodValue.relax');
+        tempVal = temp.get('moodValue.${formattedDate}.relax');
       }
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'moodValue.relax': (tempVal! + 1)});
+          .update({'moodValue.${formattedDate}.relax': (tempVal! + 1)});
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
-          .update({'dayMood.${formattedDate.toLowerCase()}': "relax"});
+          .update({'dayMood.${formattedDate}': "relax"});
     } catch (e) {
       print(e.toString());
     }

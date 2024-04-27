@@ -2,16 +2,16 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:moodmate/Model/bar_data.dart';
 
-Container MyBarGraph(BuildContext context) {
+Container MyBarGraph(BuildContext context, List<double> barGraphDayData) {
   // NOTE: Set the value of the bar here.
-  List<double> barGraphDayData = [
-    20.40,
-    55.50,
-    80.0,
-    20.45,
-    88.90,
-    34.0,
-  ];
+  // List<double> barGraphDayData = [
+  //   20.40,
+  //   70.50,
+  //   80.0,
+  //   20.45,
+  //   88.90,
+  //   34.0,
+  // ];
 
   BarData myBarData = BarData(
     zeroday: barGraphDayData[0],

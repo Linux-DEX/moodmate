@@ -143,12 +143,12 @@ class User {
       "happy": 0,
     }
   };
-  int day15 = 0;
-  int day30 = 0;
-  int day45 = 0;
-  int day60 = 0;
-  int day75 = 0;
-  int day90 = 0;
+  double day7 = 0;
+  double day14 = 0;
+  double day21 = 0;
+  double day28 = 0;
+  double day35 = 0;
+  double day42 = 0;
 
   User({
     required this.email,
@@ -173,12 +173,12 @@ class User {
         "moodValue": moodValue,
         "prevDayMood": prevDayMood,
         "prevMoodValue": prevMoodValue,
-        "day15": day15,
-        "day30": day30,
-        "day45": day45,
-        "day60": day60,
-        "day75": day75,
-        "day90": day90,
+        "day7": day7,
+        "day14": day14,
+        "day21": day21,
+        "day28": day28,
+        "day35": day35,
+        "day42": day42,
       };
   static User fromSnap(DocumentSnapshot snap) {
     var snapshot = snap.data() as Map<String, dynamic>;

@@ -109,13 +109,28 @@ class _WeeklyReportClassState extends State<WeeklyReportClass> {
           .doc(widget.uid)
           .get();
       userData = userSnap.data()!;
-      dayPerc[0] = userData['moodValue']!['monday']![userData['dayMood']!['monday']] ?? 0;
-      dayPerc[1] = userData['moodValue']!['tuesday']![userData['dayMood']!['tuesday']] ?? 0;
-      dayPerc[2] = userData['moodValue']!['wednesday']![userData['dayMood']!['wednesday']] ?? 0;
-      dayPerc[3] = userData['moodValue']!['thursday']![userData['dayMood']!['thursday']] ?? 0;
-      dayPerc[4] = userData['moodValue']!['friday']![userData['dayMood']!['friday']] ?? 0;
-      dayPerc[5] = userData['moodValue']!['saturday']![userData['dayMood']!['saturday']] ?? 0;
-      dayPerc[6] = userData['moodValue']!['sunday']![userData['dayMood']!['sunday']] ?? 0;
+      dayPerc[0] =
+          userData['moodValue']!['monday']![userData['dayMood']!['monday']] ??
+              0;
+      dayPerc[1] =
+          userData['moodValue']!['tuesday']![userData['dayMood']!['tuesday']] ??
+              0;
+      dayPerc[2] = userData['moodValue']!['wednesday']![
+              userData['dayMood']!['wednesday']] ??
+          0;
+      dayPerc[3] = userData['moodValue']!['thursday']![
+              userData['dayMood']!['thursday']] ??
+          0;
+      dayPerc[4] =
+          userData['moodValue']!['friday']![userData['dayMood']!['friday']] ??
+              0;
+      dayPerc[5] = userData['moodValue']!['saturday']![
+              userData['dayMood']!['saturday']] ??
+          0;
+      dayPerc[6] =
+          userData['moodValue']!['sunday']![userData['dayMood']!['sunday']] ??
+              0;
+      print(dayPerc);
       setState(() {});
     } catch (e) {
       // showSnackBar(e.toString(), context);
@@ -125,7 +140,6 @@ class _WeeklyReportClassState extends State<WeeklyReportClass> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
   }

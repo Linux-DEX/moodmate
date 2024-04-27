@@ -230,7 +230,9 @@ class _FirstScreenState extends State<FirstScreen> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (context) => DayBarGraphReport(),
+                          builder: (context) => DayBarGraphReport(
+                            uid: FirebaseAuth.instance.currentUser!.uid,
+                          ),
                         ),
                       );
                     },

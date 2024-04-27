@@ -20,11 +20,11 @@ class BarData {
   List<IndividualBar> barData = [];
 
   void initializeBarData() {
-    barData.add(IndividualBar(x: 15, y: zeroday));
-    barData.add(IndividualBar(x: 30, y: fifteenday));
-    barData.add(IndividualBar(x: 45, y: thirtyday));
-    barData.add(IndividualBar(x: 60, y: fortyfiveday));
-    barData.add(IndividualBar(x: 75, y: sixtyday));
-    barData.add(IndividualBar(x: 90, y: seventyfiveday));
+    barData.add(IndividualBar(x: 7, y: zeroday));
+    barData.add(IndividualBar(x: 14, y: fifteenday));
+    barData.add(IndividualBar(x: 21, y: thirtyday));
+    barData.add(IndividualBar(x: 28, y: fortyfiveday));
+    barData.add(IndividualBar(x: 35, y: sixtyday));
+    barData.add(IndividualBar(x: 42, y: seventyfiveday));
   }
 }

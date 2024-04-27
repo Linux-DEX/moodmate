@@ -16,7 +16,7 @@ setUserTasks() async {
     "saturday": "",
   };
   Map<String, Map<String, int>> moodValue = {
-        "sunday": {
+    "sunday": {
       "depress": 0,
       "stress": 0,
       "anger": 0,
@@ -74,21 +74,58 @@ setUserTasks() async {
     },
   };
   List<dynamic> tasks = [false, false, false, false, false];
+  var userData = {};
+  double addValue = 0;
 
   try {
     await FirebaseFirestore.instance
         .collection('users')
         .doc(userId)
         .update({'todaytask': tasks});
-    print("updated successfully");
+    print("updated TodayTask successfully");
+
+    var userSnap =
+        await FirebaseFirestore.instance.collection('users').doc(userId).get();
+    userData = userSnap.data()!;
 
     DateTime now = DateTime.now();
     String today = DateFormat('EEEE').format(now).toLowerCase();
     if (today == 'monday') {
+      await FirebaseFirestore.instance.collection('users').doc(userId).update({
+        'prevDayMood': userData['dayMood'],
+        'prevMoodValue': userData['moodValue'] ?? moodValue
+      });
+
       await FirebaseFirestore.instance
           .collection('users')
           .doc(userId)
           .update({'dayMood': dayMood, 'moodValue': moodValue});
+
+      {
+        // ERROR: This is not getting updated to the firebase 
+        userData.forEach((day, mood) {
+          addValue += userData['prevMoodValue']![day]![mood];
+        });
+
+        userData['day7'] = (addValue / 35) * 100;
+        userData['day14'] = ( userData['day7'] + addValue) / 70 * 100;
+        userData['day21'] = ( userData['day14'] + addValue ) / 105 * 100;
+        userData['day28'] = ( userData['day21'] + addValue ) / 140 * 100;
+        userData['day35'] = ( userData['day28'] + addValue ) / 175 * 100;
+        userData['day42'] = ( userData['day35'] + addValue ) / 210 * 100;
+
+        await FirebaseFirestore.instance
+            .collection('users')
+            .doc(userId)
+            .update({ 
+              'day7': userData['day7'],
+              'day14': userData['day14'],
+              'day21': userData['day21'],
+              'day28': userData['day28'],
+              'day35': userData['day35'],
+              'day42': userData['day42'],
+            });
+      }
     }
   } catch (e) {
     print(e.toString());

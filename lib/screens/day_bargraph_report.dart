@@ -27,6 +27,7 @@ class _DayBarGraphReportState extends State<DayBarGraphReport> {
       barGraphDayData[3] = userData['day28'].toDouble();
       barGraphDayData[4] = userData['day35'].toDouble();
       barGraphDayData[5] = userData['day42'].toDouble();
+      print(userData['moodValue']);
       setState(() {});
     } catch (e) {
       // showSnackBar(e.toString(), context);

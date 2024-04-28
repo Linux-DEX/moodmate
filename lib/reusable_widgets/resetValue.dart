@@ -103,27 +103,33 @@ setUserTasks() async {
 
       {
         // ERROR: This is not getting updated to the firebase 
-        userData.forEach((day, mood) {
-          addValue += userData['prevMoodValue']![day]![mood];
+        // userData.forEach((day, mood) {
+        //   addValue += userData['prevMoodValue']![day]![mood];
+        // });
+
+        userData['prevMoodValue']!.forEach((day, moodValues) {
+          moodValues.forEach((mood, value) {
+            addValue += value.toDouble(); 
+          });
         });
 
         userData['day7'] = (addValue / 35) * 100;
-        userData['day14'] = ( userData['day7'] + addValue) / 70 * 100;
-        userData['day21'] = ( userData['day14'] + addValue ) / 105 * 100;
-        userData['day28'] = ( userData['day21'] + addValue ) / 140 * 100;
-        userData['day35'] = ( userData['day28'] + addValue ) / 175 * 100;
-        userData['day42'] = ( userData['day35'] + addValue ) / 210 * 100;
+        userData['day14'] = ( ((userData['day7']!*35)/100 + addValue) / 70) * 100;
+        userData['day21'] = ( ((userData['day14']!*70)/100 + addValue) / 105) * 100;
+        userData['day28'] = ( ((userData['day21']!*105)/100 + addValue) / 140) * 100;
+        userData['day35'] = ( ((userData['day28']!*140)/100 + addValue) / 175) * 100;
+        userData['day42'] = ( ((userData['day35']!*175)/100 + addValue) / 210) * 100;
 
         await FirebaseFirestore.instance
             .collection('users')
             .doc(userId)
             .update({ 
-              'day7': userData['day7'],
-              'day14': userData['day14'],
-              'day21': userData['day21'],
-              'day28': userData['day28'],
-              'day35': userData['day35'],
-              'day42': userData['day42'],
+              'day7': userData['day7']!.toInt(),
+              'day14': userData['day14']!.toInt(),
+              'day21': userData['day21']!.toInt(),
+              'day28': userData['day28']!.toInt(),
+              'day35': userData['day35']!.toInt(),
+              'day42': userData['day42']!.toInt(),
             });
       }
     }

@@ -16,9 +16,13 @@ class DayWeekReportScreen extends StatefulWidget {
 class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
   double dayPercentage = 0;
   String previousDayName = "";
+  bool isLoading = false;
 
   var userData = {};
   getData() async {
+    setState(() {
+      isLoading = true;
+    });
     try {
       DateTime now = DateTime.now();
       // DateTime previousDay = now.subtract(Duration(days: 1));
@@ -39,6 +43,9 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
       // showSnackBar(e.toString(), context);
       print("Error : ${e}");
     }
+    setState(() {
+      isLoading = false;
+    });
   }
 
   @override
@@ -87,6 +94,7 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
+                isLoading ? Text("Loading...") :
                 WeeklyReportClass(uid: widget.uid),
               ],
             ),

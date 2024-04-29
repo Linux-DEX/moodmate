@@ -21,8 +21,9 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
   getData() async {
     try {
       DateTime now = DateTime.now();
-      DateTime previousDay = now.subtract(Duration(days: 1));
-      previousDayName = DateFormat('EEEE').format(previousDay).toLowerCase();
+      // DateTime previousDay = now.subtract(Duration(days: 1));
+      // previousDayName = DateFormat('EEEE').format(previousDay).toLowerCase();
+      previousDayName = DateFormat('EEEE').format(now).toLowerCase();
       var userSnap = await FirebaseFirestore.instance
           .collection('users')
           .doc(widget.uid)

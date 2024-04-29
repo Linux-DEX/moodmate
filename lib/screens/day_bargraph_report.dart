@@ -27,7 +27,6 @@ class _DayBarGraphReportState extends State<DayBarGraphReport> {
       barGraphDayData[3] = userData['day28'].toDouble();
       barGraphDayData[4] = userData['day35'].toDouble();
       barGraphDayData[5] = userData['day42'].toDouble();
-      print(userData['moodValue']);
       setState(() {});
     } catch (e) {
       // showSnackBar(e.toString(), context);
@@ -50,8 +49,26 @@ class _DayBarGraphReportState extends State<DayBarGraphReport> {
           style: TextStyle(fontWeight: FontWeight.w400),
         ),
       ),
-      body: Center(
-        child: MyBarGraph(context, barGraphDayData),
+      body: SafeArea(
+        child: Container(
+          // child: MyBarGraph(context, barGraphDayData),
+          alignment: Alignment.center,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              MyBarGraph(context, barGraphDayData),
+              Text(
+                'x -> Number of Days',
+                style: TextStyle(fontWeight: FontWeight.w400),
+              ),
+              Text(
+                'y -> Percentage',
+                style: TextStyle(fontWeight: FontWeight.w400),
+              ),
+            ]
+          ),
+        ),
       ),
     );
   }

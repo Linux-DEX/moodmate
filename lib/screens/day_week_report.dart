@@ -94,8 +94,11 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
                   ),
                 ),
                 SizedBox(height: MediaQuery.of(context).size.height * 0.01),
-                isLoading ? Text("Loading...") :
-                WeeklyReportClass(uid: widget.uid),
+                isLoading ? 
+                const Center(
+                  child: CircularProgressIndicator(),
+                )
+                : WeeklyReportClass(uid: widget.uid),
               ],
             ),
           ),

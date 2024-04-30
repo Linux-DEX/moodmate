@@ -11,10 +11,10 @@ class FeedScreen extends StatelessWidget {
       appBar:  AppBar(
         centerTitle: false,
         title: Text('Feed'),
-        actions: [
-          IconButton(onPressed: (){},
-           icon: Icon(Icons.messenger_outline_rounded))
-        ],
+        // actions: [
+        //   IconButton(onPressed: (){},
+        //    icon: Icon(Icons.messenger_outline_rounded))
+        // ],
       ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('posts').snapshots(),

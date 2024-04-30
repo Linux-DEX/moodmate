@@ -23,7 +23,6 @@ class _PostCardState extends State<PostCard> {
   int commentLen=0;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getComments();
   }

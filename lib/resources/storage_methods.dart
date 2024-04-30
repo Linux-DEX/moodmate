@@ -1,13 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:uuid/uuid.dart';
 class StorageMethods
 {
   final FirebaseStorage _storage=FirebaseStorage.instance;
   final FirebaseAuth _auth =FirebaseAuth.instance;
-  //addin image to firebase
+  
   Future<String> uploadImageToStrorage(String childName,Uint8List file,bool isPost) async
   {
     Reference ref= _storage.ref().child(childName).child(_auth.currentUser!.uid);

@@ -63,11 +63,6 @@ class SongDataController extends GetxController {
 
       SongModel nextSong = localSongList[currentSongPlayingIndex.value];
       songPlayerController.playLocalAudio(nextSong);
-
-    // if (currentSongPlayingIndex.value < songListLen) {
-    //   SongModel nextSong = localSongList[currentSongPlayingIndex.value];
-    //   songPlayerController.playLocalAudio(nextSong);
-    // }
   }
 
   void playPreviousSong() {

@@ -102,7 +102,6 @@ class _SignInScreenState extends State<SignInScreen> {
                       ],
                     ),
                     signInSignUpButton(context, true, () async {
-                      // FIXME: do testing for this code here and async above
                       var sharedPref = await SharedPreferences.getInstance();
                       sharedPref.setBool(splashPageState.KEYLOGIN, true);
         

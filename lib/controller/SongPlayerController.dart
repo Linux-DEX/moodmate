@@ -30,7 +30,6 @@ class SongPlayerController extends GetxController {
     isPlaying.value = true;
   }
 
-  // README: Here i am playing the firebase audio 
   void playCloudAudio(MySongModel song) async {
     songTitle.value = song.title!;
     songArtist.value = song.artist!;

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:moodmate/reusable_widgets/bar_graph.dart';
 
 class DayBarGraphReport extends StatefulWidget {
-  // const DayBarGraphReport({super.key});
   final String uid;
   const DayBarGraphReport({super.key, required this.uid});
 
@@ -29,7 +28,6 @@ class _DayBarGraphReportState extends State<DayBarGraphReport> {
       barGraphDayData[5] = userData['day42'].toDouble();
       setState(() {});
     } catch (e) {
-      // showSnackBar(e.toString(), context);
       print("Error : ${e}");
     }
   }
@@ -51,7 +49,6 @@ class _DayBarGraphReportState extends State<DayBarGraphReport> {
       ),
       body: SafeArea(
         child: Container(
-          // child: MyBarGraph(context, barGraphDayData),
           alignment: Alignment.center,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

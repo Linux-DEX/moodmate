@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:moodmate/utils.dart';
 
 class StressList extends StatefulWidget {
-  // const StressList({super.key});
   final String uid;
   const StressList({Key? key, required this.uid}) : super(key: key);
 
@@ -154,10 +152,6 @@ class StressListState extends State<StressList> {
                     child: Checkbox(
                         value: isChecked[index],
                         onChanged: (newValue) {
-                          // * this is another way of checkbox
-                          // setState(() => {
-                          //       isChecked[index] = newValue ?? false,
-                          //     });
                           setState(() => {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),

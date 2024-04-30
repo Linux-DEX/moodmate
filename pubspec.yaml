@@ -48,6 +48,7 @@ dependencies:
   uuid: ^4.3.3
   percent_indicator: ^4.2.3
   fl_chart: ^0.66.2
+  liquid_pull_to_refresh: ^3.0.1
 
 dev_dependencies:
   flutter_lints: ^3.0.1

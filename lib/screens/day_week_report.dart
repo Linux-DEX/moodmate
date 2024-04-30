@@ -5,7 +5,6 @@ import 'package:moodmate/reusable_widgets/day_report.dart';
 import 'package:moodmate/reusable_widgets/weekly_report.dart';
 
 class DayWeekReportScreen extends StatefulWidget {
-  // const DayWeekReportScreen({super.key});
   final String uid;
   const DayWeekReportScreen({super.key, required this.uid});
 
@@ -25,8 +24,6 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
     });
     try {
       DateTime now = DateTime.now();
-      // DateTime previousDay = now.subtract(Duration(days: 1));
-      // previousDayName = DateFormat('EEEE').format(previousDay).toLowerCase();
       previousDayName = DateFormat('EEEE').format(now).toLowerCase();
       var userSnap = await FirebaseFirestore.instance
           .collection('users')
@@ -40,7 +37,6 @@ class _DayWeekReportScreenState extends State<DayWeekReportScreen> {
       dayPercentage = (value * 100) / 5;
       setState(() {});
     } catch (e) {
-      // showSnackBar(e.toString(), context);
       print("Error : ${e}");
     }
     setState(() {

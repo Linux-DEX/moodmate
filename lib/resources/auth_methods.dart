@@ -1,9 +1,7 @@
 
 import "dart:typed_data";
-
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
-import "package:flutter/material.dart" ;
 import "package:moodmate/Model/user.dart"as model;
 import "package:moodmate/resources/storage_methods.dart";
 
@@ -18,7 +16,7 @@ class AuthMethods{
       snap
     );
   }
-  //sign up user
+  
   Future<String> signUpUser({required String email,
   required String password,
   required String username,
@@ -31,10 +29,8 @@ class AuthMethods{
       {
         if(email.isNotEmpty||password.isNotEmpty||username.isNotEmpty||bio.isNotEmpty)
         {
-          //Register user
           UserCredential cred= await  _auth.createUserWithEmailAndPassword(email: email, password: password);
-
-          //Photo upload
+          
           String photoUrl= await StorageMethods().uploadImageToStrorage('profilePics', file, false);
 
           model.User user =model.User(

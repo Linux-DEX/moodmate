@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:moodmate/utils.dart';
 
 class MyHeaderDrawer extends StatefulWidget {
-  // const MyHeaderDrawer({super.key});
   final String uid;
   const MyHeaderDrawer({Key? key, required this.uid}) : super(key: key);
 
@@ -18,7 +16,6 @@ class _MyHeaderDrawerState extends State<MyHeaderDrawer> {
 
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     getData();
   }

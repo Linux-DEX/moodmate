@@ -69,8 +69,6 @@ class SongPage extends StatelessWidget {
                               ))
                           .toList())
                   : Column(
-                    // BUG: It is not able to next and previous the cloud music 
-                    // TODO: fix the bug here 
                       children: cloudSongController.cloudSongList.value
                           .map((e) => SongTile(
                                 onPress: () {

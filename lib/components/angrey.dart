@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 class AngerList extends StatefulWidget {
-  // const AngerList({super.key});
   final String uid;
   const AngerList({Key? key, required this.uid}) : super(key: key);
 
@@ -154,7 +153,6 @@ class _AngerListState extends State<AngerList> {
                     child: Checkbox(
                         value: isChecked[index],
                         onChanged: (newValue) {
-                          // setState(() => isChecked[index] = !isChecked[index]);
                           setState(() => {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),

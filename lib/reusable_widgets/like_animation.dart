@@ -23,14 +23,12 @@ class _LikeAnimationState extends State<LikeAnimation>with SingleTickerProviderS
   late Animation<double> scale;
   @override
   void initState() {
-    // TODO: implement initState
     super.initState();
     controller= AnimationController(vsync: this,duration: Duration(milliseconds:widget.duration.inMilliseconds ~/2),);
     scale=Tween<double>(begin: 1,end: 1.2).animate(controller);
   }
   @override
   void didUpdateWidget(covariant LikeAnimation oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     if(widget.isAnimating!= oldWidget.isAnimating)
     {
@@ -51,7 +49,6 @@ class _LikeAnimationState extends State<LikeAnimation>with SingleTickerProviderS
   }
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     controller.dispose();
   }

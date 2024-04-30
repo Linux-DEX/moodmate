@@ -3,10 +3,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:moodmate/utils.dart';
 
 class Depress extends StatefulWidget {
-  // const Depress({super.key});
   final String uid;
   const Depress({Key? key, required this.uid}) : super(key: key);
 

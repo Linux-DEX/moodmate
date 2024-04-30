@@ -2,10 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:moodmate/utils.dart';
 
 class RelaxList extends StatefulWidget {
-  // const RelaxList({super.key});
   final String uid;
   const RelaxList({Key? key, required this.uid}) : super(key: key);
 
@@ -154,7 +152,6 @@ class _RelaxListState extends State<RelaxList> {
                     child: Checkbox(
                         value: isChecked[index],
                         onChanged: (newValue) {
-                          // setState(() => isChecked[index] = !isChecked[index]);
                           setState(() => {
                                 isChecked[index] = !isChecked[index],
                                 setUserTasks(isChecked),

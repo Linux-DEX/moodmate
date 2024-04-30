@@ -18,7 +18,6 @@ class _CommentsScreenState extends State<CommentsScreen> {
   final TextEditingController _commentContoller = TextEditingController();
   @override
   void dispose() {
-    // TODO: implement dispose
     super.dispose();
     _commentContoller.dispose();
   }

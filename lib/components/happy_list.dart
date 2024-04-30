@@ -5,7 +5,6 @@ import 'package:intl/intl.dart';
 import 'package:moodmate/utils.dart';
 
 class HappyList extends StatefulWidget {
-  // const HappyList({super.key});
   final String uid;
   const HappyList({Key? key, required this.uid}) : super(key: key);
 

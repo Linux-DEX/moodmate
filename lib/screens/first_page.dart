@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';
 import 'package:moodmate/Providers/user_provider.dart';
 import 'package:moodmate/components/angrey.dart';
 import 'dart:async';
@@ -12,6 +13,7 @@ import 'package:moodmate/components/sad_list.dart';
 import 'package:moodmate/components/stress_list.dart';
 import 'package:moodmate/screens/day_bargraph_report.dart';
 import 'package:moodmate/screens/day_week_report.dart';
+import 'package:moodmate/screens/home_screen.dart';
 import 'package:provider/provider.dart';
 import "package:moodmate/Model/user.dart" as model;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -165,14 +167,12 @@ class _FirstScreenState extends State<FirstScreen> {
       isVisible = false;
       _incrementCounter();
     });
+  }
 
-    // Timer(Duration(seconds: 60), () {
-    //   setState(() {
-    //     isVisible = !isVisible;
-    //     Navigator.push(
-    //         context, MaterialPageRoute(builder: (context) => HomeScreen()));
-    //   });
-    // });
+  Future<void> _handleRefresh() async {
+    Navigator.push(
+        context, MaterialPageRoute(builder: (context) => HomeScreen()));
+    return await Future.delayed(Duration(seconds: 1));
   }
 
   @override
@@ -246,128 +246,128 @@ class _FirstScreenState extends State<FirstScreen> {
           ),
         ),
       ),
-      body: isLoading
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : SingleChildScrollView(
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: RichText(
-                          textAlign: TextAlign.left,
-                          text: TextSpan(
-                              text: "Welcome back,",
-                              style: TextStyle(
-                                  fontSize: 25,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                              children: <TextSpan>[
-                                if (user != null && user.username != null)
-                                  TextSpan(
-                                      text: user.username,
-                                      style: TextStyle(
-                                          fontSize: 25,
-                                          color: Colors.blueAccent,
-                                          fontWeight: FontWeight.bold))
-                              ])),
-                    ),
-                    SizedBox(
-                      height: 10,
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                      child: Text(
-                        "How are you feeling today?",
-                        style: TextStyle(fontSize: 17),
+      body: LiquidPullToRefresh(
+        color: Colors.blueAccent,
+        backgroundColor: Colors.white,
+        height: 220,
+        borderWidth: 2.0,
+        showChildOpacityTransition: false,
+        onRefresh: _handleRefresh,
+        child: isLoading
+            ? const Center(
+                child: CircularProgressIndicator(),
+              )
+            : SingleChildScrollView(
+                child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: <Widget>[
+                      SizedBox(
+                        height: 10,
                       ),
-                    ),
-                    SizedBox(
-                      height: 40,
-                    ),
-                    isVisible
-                        ? Center(
-                            child: Container(
-                              padding: EdgeInsets.only(top: 30),
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              height: MediaQuery.of(context).size.width * 0.73,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.blue[50],
-                              ),
-                              child: GridView.builder(
-                                  gridDelegate:
-                                      const SliverGridDelegateWithMaxCrossAxisExtent(
-                                          maxCrossAxisExtent: 100,
-                                          // childAspectRatio: 3 / 2,
-                                          crossAxisSpacing: 10,
-                                          mainAxisSpacing: 10),
-                                  // physics: const BouncingScrollPhysics(),
-                                  // itemCount: items.length,
-                                  itemCount: 6,
-                                  // scrollDirection: Axis.horizontal,
-                                  itemBuilder: (context, index) {
-                                    return GestureDetector(
-                                      // ? static tap
-                                      // onTap: () {
-                                      //   setState(() {
-                                      //     current = index;
-                                      //   });
-                                      // },
-                                      // ? to change the visibility
-                                      // onTap: _toggleVisibility,
-                                      onTap: () async {
-                                        final prefs = await SharedPreferences
-                                            .getInstance();
-                                        checkDayfirebase();
-                                        current = index;
-                                        prefs.setInt('current', index);
-                                        _toggleVisibility();
-                                      },
-                                      child: Container(
-                                        height: 100,
-                                        child: Column(
-                                          children: [
-                                            Container(
-                                              height: 40,
-                                              child: Center(
-                                                child: Image.asset(
-                                                    'assets/images/${img[index]}'),
-                                              ),
-                                            ),
-                                            SizedBox(
-                                              height: 5.0,
-                                            ),
-                                            Text(items[index]),
-                                          ],
-                                        ),
-                                      ),
-                                    );
-                                  }),
-                            ),
-                          )
-                        : Column(
-                            children: [
-                              Padding(
-                                padding:
-                                    const EdgeInsets.fromLTRB(20, 0, 20, 0),
-                                child: Text(
-                                  "Today\'s Task",
-                                  style: TextStyle(fontSize: 20),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: RichText(
+                            textAlign: TextAlign.left,
+                            text: TextSpan(
+                                text: "Welcome back,",
+                                style: TextStyle(
+                                    fontSize: 25,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.bold),
+                                children: <TextSpan>[
+                                    TextSpan(
+                                        text: user.username ?? "User name",
+                                        style: TextStyle(
+                                            fontSize: 25,
+                                            color: Colors.blueAccent,
+                                            fontWeight: FontWeight.bold))
+                                ])),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                        child: Text(
+                          "How are you feeling today?",
+                          style: TextStyle(fontSize: 17),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 40,
+                      ),
+                      isVisible
+                          ? Center(
+                              child: Container(
+                                padding: EdgeInsets.only(top: 30),
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                height:
+                                    MediaQuery.of(context).size.width * 0.73,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(20),
+                                  color: Colors.blue[50],
                                 ),
+                                child: GridView.builder(
+                                    gridDelegate:
+                                        const SliverGridDelegateWithMaxCrossAxisExtent(
+                                            maxCrossAxisExtent: 100,
+                                            // childAspectRatio: 3 / 2,
+                                            crossAxisSpacing: 10,
+                                            mainAxisSpacing: 10),
+                                    // physics: const BouncingScrollPhysics(),
+                                    // itemCount: items.length,
+                                    itemCount: 6,
+                                    // scrollDirection: Axis.horizontal,
+                                    itemBuilder: (context, index) {
+                                      return GestureDetector(
+                                        onTap: () async {
+                                          final prefs = await SharedPreferences
+                                              .getInstance();
+                                          checkDayfirebase();
+                                          current = index;
+                                          prefs.setInt('current', index);
+                                          _toggleVisibility();
+                                        },
+                                        child: Container(
+                                          height: 100,
+                                          child: Column(
+                                            children: [
+                                              Container(
+                                                height: 40,
+                                                child: Center(
+                                                  child: Image.asset(
+                                                      'assets/images/${img[index]}'),
+                                                ),
+                                              ),
+                                              SizedBox(
+                                                height: 5.0,
+                                              ),
+                                              Text(items[index]),
+                                            ],
+                                          ),
+                                        ),
+                                      );
+                                    }),
                               ),
-                              Container(
-                                child: listChange[current],
-                              ),
-                            ],
-                          )
-                  ]),
-            ),
+                            )
+                          : Column(
+                              children: [
+                                Padding(
+                                  padding:
+                                      const EdgeInsets.fromLTRB(20, 0, 20, 0),
+                                  child: Text(
+                                    "Today\'s Task",
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                ),
+                                Container(
+                                  child: listChange[current],
+                                ),
+                              ],
+                            )
+                    ]),
+              ),
+      ),
     );
   }
 }

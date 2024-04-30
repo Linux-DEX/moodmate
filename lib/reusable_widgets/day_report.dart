@@ -15,19 +15,6 @@ Container DailyReport(BuildContext context, double perc) {
             color: Colors.redAccent,
           ),
         ),
-        // Container(
-        //     margin: EdgeInsets.symmetric(vertical: 20),
-        //     width: 300,
-        //     height: 20,
-        //     child: ClipRRect(
-        //       borderRadius: BorderRadius.all(Radius.circular(10)),
-        //       child: LinearProgressIndicator(
-        //         value: 0.6,
-        //         valueColor: AlwaysStoppedAnimation<Color>(Color(0xff00ff00)),
-        //         backgroundColor: Color(0xffD6D6D6),
-        //       ),
-        //     ),
-        //   ),
         LinearPercentIndicator(
           width: MediaQuery.of(context).size.width - 98,
           animation: true,

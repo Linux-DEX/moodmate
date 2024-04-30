@@ -23,16 +23,6 @@ class _MusicScreenState extends State<MusicScreen> {
         elevation: 0,
         iconTheme: IconThemeData(color: Colors.black, size: 32),
         backgroundColor: Colors.white,
-        // README: No use of adding the features 
-        // leading: Builder(
-        //   builder: (BuildContext context) {
-        //     return IconButton(
-        //         onPressed: () {
-        //           print("click");
-        //         },
-        //         icon: Icon(Icons.keyboard_arrow_down));
-        //   },
-        // ),
         actions: [
           IconButton(
               onPressed: () => {
@@ -86,7 +76,6 @@ class _MusicScreenState extends State<MusicScreen> {
           SizedBox(
             height: 15,
           ),
-          // NOTE: This song title and singer name
           Column(
             children: [
               Obx(
@@ -104,7 +93,6 @@ class _MusicScreenState extends State<MusicScreen> {
                 () => Center(
                   child: Text(
                     "${songPlayerController.songArtist.value}",
-                    // songPlayerController.artistName.value.toString(),
                     style: TextStyle(
                         fontSize: 15,
                         fontWeight: FontWeight.w400,
@@ -140,17 +128,6 @@ class _MusicScreenState extends State<MusicScreen> {
                     "${songPlayerController.currentTime}",
                     style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700),
                   ),
-                  // Expanded(
-                  //     child: Obx(
-                  //   () => Slider(
-                  //     value: songPlayerController.sliderValue.value,
-                  //     onChanged: (value) {
-                  //       songPlayerController.sliderValue.value = value;
-                  //     },
-                  //     min: 0,
-                  //     max: songPlayerController.sliderMaxValue.value,
-                  //   ),
-                  // )),
                   Text("/"),
                   Text("${songPlayerController.totalTime}",
                       style: TextStyle(

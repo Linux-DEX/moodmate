@@ -25,12 +25,6 @@ class _SettigScreenState extends State<SettigScreen> {
           ElevatedButton(
             child: Text('logout', style: TextStyle(color: Colors.white),),
             style: ElevatedButton.styleFrom(
-                // padding: EdgeInsets.fromLTRB(
-                //     MediaQuery.of(context).size.width * 0.2,
-                //     20,
-                //     MediaQuery.of(context).size.width * 0.2,
-                //     20),
-                //primary: Color.fromARGB(255, 110, 120, 241),
                 textStyle: const TextStyle(
                   color: Colors.white,
                   fontSize: 20,

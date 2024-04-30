@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-import 'package:moodmate/Model/user.dart';
-import 'package:moodmate/Providers/user_provider.dart';
-import 'package:provider/provider.dart';
 
 class CommentCard extends StatefulWidget {
   final snap;

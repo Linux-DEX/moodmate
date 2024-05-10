@@ -27,20 +27,7 @@ flutter run
 ```
 
 ## App images
-![image](./img/img1.jpg)
-![image](./img/img2.jpg)
-![image](./img/img3.jpg)
-![image](./img/img4.jpg)
-![image](./img/img5.jpg)
-![image](./img/img6.jpg)
-![image](./img/img7.jpg)
-![image](./img/img8.jpg)
-![image](./img/img9.jpg)
-![image](./img/img10.jpg)
-![image](./img/img11.jpg)
-![image](./img/img12.jpg)
-![image](./img/img13.jpg)
-![image](./img/img14.jpg)
+<img src="./img/img1.jpg" alt="bash" width="200" height="400"/> <img src="./img/img2.jpg" alt="bash" width="200" height="400"/> <img src="./img/img3.jpg" alt="bash" width="200" height="400"/> <img src="./img/img4.jpg" alt="bash" width="200" height="400"/> <img src="./img/img5.jpg" alt="bash" width="200" height="400"/> <img src="./img/img6.jpg" alt="bash" width="200" height="400"/> <img src="./img/img7.jpg" alt="bash" width="200" height="400"/> <img src="./img/img8.jpg" alt="bash" width="200" height="400"/> <img src="./img/img9.jpg" alt="bash" width="200" height="400"/> <img src="./img/img10.jpg" alt="bash" width="200" height="400"/> <img src="./img/img11.jpg" alt="bash" width="200" height="400"/> <img src="./img/img12.jpg" alt="bash" width="200" height="400"/> <img src="./img/img13.jpg" alt="bash" width="200" height="400"/> <img src="./img/img14.jpg" alt="bash" width="200" height="400"/>
 
 ## Project Partner
 **Name**: Rahul Mandal
